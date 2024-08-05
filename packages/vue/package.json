@@ -1,0 +1,77 @@
+{
+  "name": "@dnd-kit/vue",
+  "version": "0.0.6",
+  "main": "./index.cjs",
+  "module": "./index.js",
+  "type": "module",
+  "types": "./index.d.ts",
+  "sideEffects": false,
+  "license": "MIT",
+  "files": [
+    "LICENSE",
+    "README.md",
+    "index.js",
+    "index.d.ts",
+    "index.cjs",
+    "hooks.js",
+    "hooks.d.ts",
+    "hooks.cjs",
+    "sortable.js",
+    "sortable.d.ts",
+    "sortable.cjs",
+    "utilities.js",
+    "utilities.d.ts",
+    "utilities.cjs"
+  ],
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js",
+      "require": "./index.cjs"
+    },
+    "./hooks": {
+      "types": "./hooks.d.ts",
+      "import": "./hooks.js",
+      "require": "./hooks.cjs"
+    },
+    "./sortable": {
+      "types": "./sortable.d.ts",
+      "import": "./sortable.js",
+      "require": "./sortable.cjs"
+    },
+    "./utilities": {
+      "types": "./utilities.d.ts",
+      "import": "./utilities.js",
+      "require": "./utilities.cjs"
+    }
+  },
+  "scripts": {
+    "build": "bun build:hooks && bun build:utilities && bun build:core && bun build:sortable",
+    "build:core": "tsup src/core/index.ts",
+    "build:hooks": "tsup --entry.hooks src/hooks/index.ts",
+    "build:sortable": "tsup --entry.sortable src/sortable/index.ts",
+    "build:utilities": "tsup --entry.utilities src/utilities/index.ts",
+    "dev": "bun build:hooks --watch & bun build:utilities --watch & bun build:core --watch & bun build:sortable --watch",
+    "lint": "TIMING=1 eslint src/**/*.ts* --fix",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "dependencies": {
+    "@dnd-kit/abstract": "^0.0.6",
+    "@dnd-kit/dom": "^0.0.6",
+    "@dnd-kit/state": "^0.0.6",
+    "tslib": "^2.6.2"
+  },
+  "peerDependencies": {
+    "vue": "3.4"
+  },
+  "devDependencies": {
+    "eslint": "^8.38.0",
+    "@dnd-kit/eslint-config": "*",
+    "vue": "3.4.35",
+    "tsup": "^8.1.0",
+    "typescript": "^5.5.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

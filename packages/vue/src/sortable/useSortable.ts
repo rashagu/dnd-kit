@@ -42,9 +42,9 @@ export function useSortable<T extends Data = Data>(input: UseSortableInput<T>) {
     return new Sortable(
       {
         ...input,
-        handle,
-        element,
-        target,
+        handle: handle.value,
+        element: element.value,
+        target: target.value,
         feedback,
       },
       manager
@@ -81,9 +81,9 @@ export function useSortable<T extends Data = Data>(input: UseSortableInput<T>) {
     },
     immediateEffect
   );
-  useOnValueChange(handle, () => (sortable.value.handle = handle));
-  useOnValueChange(element, () => (sortable.value.element = element));
-  useOnValueChange(target, () => (sortable.value.target = target));
+  useOnValueChange(handle.value, () => (sortable.value.handle = handle.value));
+  useOnValueChange(element.value, () => (sortable.value.element = element.value));
+  useOnValueChange(target.value, () => (sortable.value.target = target.value));
   useOnValueChange(disabled, () => (sortable.value.disabled = disabled === true));
   useOnValueChange(sensors, () => (sortable.value.sensors = sensors));
   useOnValueChange(

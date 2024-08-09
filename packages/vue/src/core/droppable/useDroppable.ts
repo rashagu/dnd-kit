@@ -24,7 +24,7 @@ export function useDroppable<T extends Data = Data>(
       new Droppable(
         {
           ...input,
-          element,
+          element: element.value,
         },
         manager
       )
@@ -36,7 +36,7 @@ export function useDroppable<T extends Data = Data>(
   useOnValueChange(collisionDetector, () => (droppable.value.id = id));
   useOnValueChange(data, () => data && (droppable.value.data = data));
   useOnValueChange(disabled, () => (droppable.value.disabled = disabled === true));
-  useOnValueChange(element, () => (droppable.value.element = element));
+  useOnValueChange(element.value, () => (droppable.value.element = element.value));
   useOnValueChange(type, () => (droppable.value.id = id));
 
   const isDropTarget_ = shallowRef<boolean>(isDropTarget.value?.value)

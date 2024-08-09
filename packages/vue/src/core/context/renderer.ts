@@ -28,10 +28,8 @@ export function useRenderer() {
           resolver.value = resolve;
         });
       }
-      nextTick(()=>{
-        callback();
-        onResolve()
-      })
+      callback();
+      onResolve()
 
     },
   };

@@ -25,8 +25,8 @@ export function useDraggable<T extends Data = Data>(
       new Draggable(
         {
           ...input,
-          handle,
-          element,
+          handle: handle.value,
+          element: element.value,
         },
         manager
       )
@@ -35,8 +35,8 @@ export function useDraggable<T extends Data = Data>(
   const status = useComputed(() => draggable.value.status);
 
   useOnValueChange(id, () => (draggable.value.id = id));
-  useOnValueChange(handle, () => (draggable.value.handle = handle));
-  useOnValueChange(element, () => (draggable.value.element = element));
+  useOnValueChange(handle.value, () => (draggable.value.handle = handle.value));
+  useOnValueChange(element.value, () => (draggable.value.element = element.value));
   useOnValueChange(data, () => data && (draggable.value.data = data));
   useOnValueChange(disabled, () => (draggable.value.disabled = disabled === true));
   useOnValueChange(sensors, () => (draggable.value.sensors = sensors));

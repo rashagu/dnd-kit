@@ -6,7 +6,8 @@ export function useOnValueChange<T>(
   value: T,
   onChange: (value: T, oldValue: T) => void,
   effect = useEffect,
-  compare = Object.is
+  compare = Object.is,
+  sources: any[] = []
 ) {
   const tracked = shallowRef<T>(value);
 

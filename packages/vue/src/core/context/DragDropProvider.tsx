@@ -1,19 +1,11 @@
-// import {
-//   startTransition,
-//   useEffect,
-//   useState,
-//   type PropsWithChildren,
-// } from 'react';
-import {DragDropEvents, DragOperation, Renderer} from '@dnd-kit/abstract';
-import {DragDropManager, defaultPreset} from '@dnd-kit/dom';
+import {DragDropEvents} from '@dnd-kit/abstract';
 import type {DragDropManagerInput, Draggable, Droppable} from '@dnd-kit/dom';
-import {useLatest, useOnValueChange} from '@dnd-kit/vue/hooks';
+import {defaultPreset, DragDropManager} from '@dnd-kit/dom';
+import {useEffect, useOnValueChange} from '@dnd-kit/vue/hooks';
 
 import {DragDropContext} from './context.ts';
 import {useRenderer} from './renderer.ts';
-import {defineComponent, h, PropType, Ref, ref, shallowRef, Suspense, useSlots} from 'vue';
-import {useEffect} from '@dnd-kit/vue/hooks';
-
+import {defineComponent, h, PropType, shallowRef, useSlots} from 'vue';
 
 
 type Events = DragDropEvents<Draggable, Droppable, DragDropManager>;
@@ -142,9 +134,7 @@ export const DragDropProvider = defineComponent({
       return (
         <DragDropContext.Provider value={manager.value!}>
           {{
-            default: ()=><Suspense onResolve={onResolve}>
-              {slots.default?.()}
-            </Suspense>
+            default: ()=>slots.default?.()
           }}
         </DragDropContext.Provider>
       );

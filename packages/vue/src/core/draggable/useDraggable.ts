@@ -18,8 +18,10 @@ export function useDraggable<T extends Data = Data>(
   input: UseDraggableInput<T>
 ) {
   const {disabled, data, id, modifiers, sensors} = input;
+
   const handle = currentValue(input.handle);
   const element = currentValue(input.element);
+
   const draggable = useInstance(
     (manager) =>
       new Draggable(
@@ -34,20 +36,20 @@ export function useDraggable<T extends Data = Data>(
   const isDragSource = useComputed(() => draggable.value.isDragSource);
   const status = useComputed(() => draggable.value.status);
 
-  useOnValueChange(id, () => (draggable.value.id = id));
-  useOnValueChange(handle.value, () => (draggable.value.handle = handle.value));
-  useOnValueChange(element.value, () => (draggable.value.element = element.value));
-  useOnValueChange(data, () => data && (draggable.value.data = data));
-  useOnValueChange(disabled, () => (draggable.value.disabled = disabled === true));
-  useOnValueChange(sensors, () => (draggable.value.sensors = sensors));
+  useOnValueChange(()=>id, () => (draggable.value.id = id));
+  useOnValueChange(()=>handle.value, () => (draggable.value.handle = handle.value));
+  useOnValueChange(()=>element.value, () => (draggable.value.element = element.value));
+  useOnValueChange(()=>data, () => data && (draggable.value.data = data));
+  useOnValueChange(()=>disabled, () => (draggable.value.disabled = disabled === true));
+  useOnValueChange(()=>sensors, () => (draggable.value.sensors = sensors));
   useOnValueChange(
-    modifiers,
+    ()=>modifiers,
     () => (draggable.value.modifiers = modifiers),
     undefined,
     deepEqual
   );
   useOnValueChange(
-    input.feedback,
+    ()=>input.feedback,
     () => (draggable.value.feedback = input.feedback ?? 'default')
   );
 

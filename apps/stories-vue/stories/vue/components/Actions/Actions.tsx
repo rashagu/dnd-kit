@@ -1,8 +1,8 @@
 
-
 import styles from './Actions.module.css';
-import {h} from 'vue';
+import {FunctionalComponent, h} from 'vue';
 
-export function Actions(props) {
-  return <div className={styles.Actions}>{props.children}</div>;
+export const Actions:FunctionalComponent = (props, {slots})=>{
+  return <div class={styles.Actions}>{slots.default?.()}</div>;
 }
+

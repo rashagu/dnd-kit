@@ -103,7 +103,7 @@ const Sortable = defineComponent({
           <Item
             actions={<Handle ref={handleRef} />}
             data-index={props.index}
-            shadow={isDragSource}
+            shadow={isDragSource?.value}
           >
             {props.id}
           </Item>

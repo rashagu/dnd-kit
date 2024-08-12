@@ -68,7 +68,7 @@ export const Draggable = defineComponent({
       return (
         <Button
           ref={element}
-          shadow={isDragSource}
+          shadow={isDragSource?.value}
           actions={props.handle ? <Handle ref={handleRef} variant="dark" /> : undefined}
           style={props.style}
         >

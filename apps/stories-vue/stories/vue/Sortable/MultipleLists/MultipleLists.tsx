@@ -116,7 +116,7 @@ export const MultipleLists = defineComponent({
                       column={column}
                       index={index}
                       onRemove={handleRemoveItem}
-                      style={props.grid ? {height: 100} : undefined}
+                      style={props.grid ? {height: '100px'} : undefined}
                     />
                   ))
                   : null;
@@ -130,7 +130,6 @@ export const MultipleLists = defineComponent({
                   scrollable={props.scrollable}
                   style={props.columnStyle}
                 >
-                  {children?.length}
                   {children}
                 </SortableColumn>
               );
@@ -182,14 +181,14 @@ const SortableItem = defineComponent({
           ref={ref_}
           actions={
             <Actions>
-              {props.onRemove && !isDragSource ? (
+              {props.onRemove && !isDragSource?.value ? (
                 <Remove onClick={() => props.onRemove(props.id, props.column)} />
               ) : null}
               <Handle ref={handleRef} />
             </Actions>
           }
           accentColor={COLORS[props.column]}
-          shadow={isDragSource}
+          shadow={isDragSource?.value}
           style={props.style}
           transitionId={`sortable-${props.column}-${props.id}`}
         >

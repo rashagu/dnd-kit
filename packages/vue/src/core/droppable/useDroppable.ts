@@ -31,13 +31,13 @@ export function useDroppable<T extends Data = Data>(
   );
   const isDropTarget = useComputed(() => droppable.value.isDropTarget);
 
-  useOnValueChange(id, () => (droppable.value.id = id));
-  useOnValueChange(accept, () => (droppable.value.id = id), undefined, deepEqual);
-  useOnValueChange(collisionDetector, () => (droppable.value.id = id));
-  useOnValueChange(data, () => data && (droppable.value.data = data));
-  useOnValueChange(disabled, () => (droppable.value.disabled = disabled === true));
-  useOnValueChange(element.value, () => (droppable.value.element = element.value));
-  useOnValueChange(type, () => (droppable.value.id = id));
+  useOnValueChange(()=>id, () => (droppable.value.id = id));
+  useOnValueChange(()=>accept, () => (droppable.value.id = id), undefined, deepEqual);
+  useOnValueChange(()=>collisionDetector, () => (droppable.value.id = id));
+  useOnValueChange(()=>data, () => data && (droppable.value.data = data));
+  useOnValueChange(()=>disabled, () => (droppable.value.disabled = disabled === true));
+  useOnValueChange(()=>element.value, () => (droppable.value.element = element.value));
+  useOnValueChange(()=>type, () => (droppable.value.id = id));
 
   const isDropTarget_ = shallowRef<boolean>(isDropTarget.value?.value)
   effect(()=>{

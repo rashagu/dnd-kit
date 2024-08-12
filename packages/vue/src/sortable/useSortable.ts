@@ -55,7 +55,7 @@ export function useSortable<T extends Data = Data>(input: UseSortableInput<T>) {
   const isDragSource = useComputed(() => sortable.value.isDragSource);
   const status = useComputed(() => sortable.value.status);
 
-  useOnValueChange(id, () => (sortable.value.id = id));
+  useOnValueChange(()=>id, () => (sortable.value.id = id));
 
   useIsomorphicLayoutEffect(() => {
     batch(() => {
@@ -64,16 +64,16 @@ export function useSortable<T extends Data = Data>(input: UseSortableInput<T>) {
     });
   }, [()=>group, ()=>index]);
 
-  useOnValueChange(type, () => (sortable.value.type = type));
+  useOnValueChange(()=>type, () => (sortable.value.type = type));
   useOnValueChange(
-    accept,
+    ()=>accept,
     () => (sortable.value.accept = accept),
     undefined,
     deepEqual
   );
-  useOnValueChange(data, () => data && (sortable.value.data = data));
+  useOnValueChange(()=>data, () => data && (sortable.value.data = data));
   useOnValueChange(
-    index,
+    ()=>index,
     () => {
       if (manager.value?.dragOperation.status.idle && transition) {
         sortable.value.refreshShape();
@@ -81,21 +81,21 @@ export function useSortable<T extends Data = Data>(input: UseSortableInput<T>) {
     },
     immediateEffect
   );
-  useOnValueChange(handle.value, () => (sortable.value.handle = handle.value));
-  useOnValueChange(element.value, () => (sortable.value.element = element.value));
-  useOnValueChange(target.value, () => (sortable.value.target = target.value));
-  useOnValueChange(disabled, () => (sortable.value.disabled = disabled === true));
-  useOnValueChange(sensors, () => (sortable.value.sensors = sensors));
+  useOnValueChange(()=>handle.value, () => (sortable.value.handle = handle.value));
+  useOnValueChange(()=>element.value, () => (sortable.value.element = element.value));
+  useOnValueChange(()=>target.value, () => (sortable.value.target = target.value));
+  useOnValueChange(()=>disabled, () => (sortable.value.disabled = disabled === true));
+  useOnValueChange(()=>sensors, () => (sortable.value.sensors = sensors));
   useOnValueChange(
-    collisionDetector,
+    ()=>collisionDetector,
     () => (sortable.value.collisionDetector = collisionDetector)
   );
   useOnValueChange(
-    collisionPriority,
+    ()=>collisionPriority,
     () => (sortable.value.collisionPriority = collisionPriority)
   );
-  useOnValueChange(feedback, () => (sortable.value.feedback = feedback ?? 'default'));
-  useOnValueChange(transition, () => (sortable.value.transition = transition));
+  useOnValueChange(()=>feedback, () => (sortable.value.feedback = feedback ?? 'default'));
+  useOnValueChange(()=>transition, () => (sortable.value.transition = transition));
 
   return {
     get isDragSource() {

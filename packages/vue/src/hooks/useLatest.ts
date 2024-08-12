@@ -1,7 +1,7 @@
 
 
 import {useIsomorphicLayoutEffect} from './useIsomorphicLayoutEffect.ts';
-import {shallowRef} from 'vue';
+import {ShallowRef, shallowRef} from 'vue';
 
 export function useLatest<T>(value: T) {
   const valueRef = shallowRef<T | undefined>(value);
@@ -10,5 +10,5 @@ export function useLatest<T>(value: T) {
     valueRef.value = value;
   }, [value]);
 
-  return valueRef;
+  return valueRef as ShallowRef<T | undefined>;
 }

@@ -69,7 +69,7 @@ const Draggable = defineComponent({
     });
     return ()=>{
       return (
-        <Button ref={element} shadow={isDragSource}>
+        <Button ref={element} shadow={isDragSource?.value}>
           <DraggableIcon />
         </Button>
       );

@@ -115,15 +115,15 @@ export const DragDropProvider = defineComponent({
     }, [renderer]);
 
     useOnValueChange(
-      props.plugins,
+      ()=>props.plugins,
       () => manager.value && (manager.value.plugins = props.plugins as any ?? defaultPreset.plugins)
     );
     useOnValueChange(
-      props.sensors,
+      ()=>props.sensors,
       () => manager.value && (manager.value.sensors = props.sensors as any ?? defaultPreset.sensors)
     );
     useOnValueChange(
-      props.modifiers,
+      ()=>props.modifiers,
       () => manager.value && (manager.value.modifiers = props.modifiers as any ?? [])
     );
 

@@ -17,7 +17,7 @@
     "@dnd-kit/helpers": "*",
     "clipboard": "^2.0.11",
     "prismjs": "^1.29.0",
-    "vue": "^3.4",
+    "vue": "^3.5.6",
     "@kousum/vue3-window": "0.0.6"
   },
   "devDependencies": {

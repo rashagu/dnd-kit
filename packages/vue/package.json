@@ -62,12 +62,12 @@
     "tslib": "^2.6.2"
   },
   "peerDependencies": {
-    "vue": "3.4"
+    "vue": "3.5.6"
   },
   "devDependencies": {
     "eslint": "^8.38.0",
     "@dnd-kit/eslint-config": "*",
-    "vue": "3.4.35",
+    "vue": "3.5.6",
     "tsup": "^8.1.0",
     "typescript": "^5.5.2"
   },

@@ -23,7 +23,9 @@ export function useInstance<T extends Instance>(
     instance.value.manager = manager.value;
 
     // Register returns an unregister callback
-    return instance.value.register();
+
+    const unregister = instance.value.register();
+    return unregister;
   }, [instance, manager]);
 
   return instance as ShallowRef<T>;

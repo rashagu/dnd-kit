@@ -86,6 +86,7 @@ export const SortableExample = defineComponent({
           onDragEnd={(event) => {
             const {source, target} = event.operation;
 
+            console.log(event);
             if (event.canceled) {
               return;
             }

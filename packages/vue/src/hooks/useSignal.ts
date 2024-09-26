@@ -21,6 +21,7 @@ export function useSignal<T = any>(signal: ShallowRef<Signal<T>>, sync = ()=>fal
             nextTick(() => update.value = val)
           } else {
             update.value = val;
+            currentInstance?.proxy?.$forceUpdate()
           }
         }
       }),

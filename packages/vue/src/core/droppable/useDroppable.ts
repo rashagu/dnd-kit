@@ -39,12 +39,13 @@ export function useDroppable<T extends Data = Data>(
   useOnValueChange(()=>element.value, () => (droppable.value.element = element.value));
   useOnValueChange(()=>type, () => (droppable.value.id = id));
 
-  const isDropTarget_ = shallowRef<boolean>(isDropTarget.value?.value)
-  effect(()=>{
-    isDropTarget_.value = isDropTarget.value?.value
-  })
+  // const isDropTarget_ = shallowRef<boolean>(isDropTarget.value)
+  // effect(()=>{
+  //   isDropTarget_.value = isDropTarget.value
+  // })
   return {
-    isDropTarget: isDropTarget_,
+    isDropTarget,
+    // isDropTarget: isDropTarget_,
     ref: (element: Element | null) => {
       droppable.value.element = element ?? undefined;
     },

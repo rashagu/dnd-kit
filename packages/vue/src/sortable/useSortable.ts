@@ -112,12 +112,37 @@ export function useSortable<T extends Data = Data>(input: UseSortableInput<T>) {
       sortable.value.handle = element ?? undefined;
     },
     ref: (element: Element | null) => {
+      if (
+        !element &&
+        sortable.value.element?.isConnected &&
+        !manager?.value.dragOperation.status.idle
+      ) {
+        return;
+      }
+
+
       sortable.value.element = element ?? undefined;
     },
     sourceRef: (element: Element | null) => {
+      if (
+        !element &&
+        sortable.value.element?.isConnected &&
+        !manager?.value.dragOperation.status.idle
+      ) {
+        return;
+      }
+
       sortable.value.source = element ?? undefined;
     },
     targetRef: (element: Element | null) => {
+      if (
+        !element &&
+        sortable.value.element?.isConnected &&
+        !manager?.value.dragOperation.status.idle
+      ) {
+        return;
+      }
+
       sortable.value.target = element ?? undefined;
     },
   };

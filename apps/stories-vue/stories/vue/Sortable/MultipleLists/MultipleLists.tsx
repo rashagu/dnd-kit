@@ -81,11 +81,11 @@ export const MultipleLists = defineComponent({
             }
 
             if (source.type === 'column') {
-              columns.value = move(columns.value, source, target)
+              columns.value = move(columns.value, event)
               return;
             }
 
-            items.value = move(items.value, source, target)
+            items.value = move(items.value, event)
           }}
           onDragEnd={(event) => {
             if (event.canceled) {
@@ -106,7 +106,6 @@ export const MultipleLists = defineComponent({
           >
             {columns.value.map((column, columnIndex) => {
               const rows = items.value[column];
-              console.log(rows);
               const children =
                 rows.length > 0
                   ? rows.map((id, index) => (
@@ -181,6 +180,7 @@ const SortableItem = defineComponent({
       }),
     });
     return ()=>{
+      console.log(isDragSource?.value);
       return (
         <Item
           ref={ref_}

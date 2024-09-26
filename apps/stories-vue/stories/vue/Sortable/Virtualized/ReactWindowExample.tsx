@@ -38,7 +38,7 @@ export const ReactWindowExample = defineComponent({
               return;
             }
 
-            items.value = move(items.value, source, target)
+            items.value = move(items.value, event)
           }}
           onDragEnd={(event) => {
             if (event.canceled) {

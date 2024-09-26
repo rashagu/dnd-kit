@@ -24,17 +24,21 @@ export function useSortable<T extends Data = Data>(input: UseSortableInput<T>) {
     accept,
     collisionDetector,
     collisionPriority,
-    id,
     data,
-    index,
-    group,
     disabled,
     feedback,
     sensors,
     transition = defaultSortableTransition,
     type,
   } = input;
+
+
   const manager = useDragDropManager();
+
+
+  const id = currentValue(input.id);
+  const group = currentValue(input.group);
+  const index = currentValue(input.index);
   const handle = currentValue(input.handle);
   const element = currentValue(input.element);
   const target = currentValue(input.target);
@@ -45,6 +49,9 @@ export function useSortable<T extends Data = Data>(input: UseSortableInput<T>) {
         handle: handle.value,
         element: element.value,
         target: target.value,
+        index: index.value!,
+        group: group.value!,
+        id: id.value!,
         feedback,
       },
       manager
@@ -55,14 +62,14 @@ export function useSortable<T extends Data = Data>(input: UseSortableInput<T>) {
   const isDragSource = useComputed(() => sortable.value.isDragSource);
   const status = useComputed(() => sortable.value.status);
 
-  useOnValueChange(()=>id, () => (sortable.value.id = id));
+  useOnValueChange(()=>id.value, () => (sortable.value.id = id.value!));
 
   useIsomorphicLayoutEffect(() => {
     batch(() => {
-      sortable.value.group = group;
-      sortable.value.index = index;
+      sortable.value.group = group.value;
+      sortable.value.index = index.value!;
     });
-  }, [()=>group, ()=>index]);
+  }, [()=>group.value, ()=>index.value]);
 
   useOnValueChange(()=>type, () => (sortable.value.type = type));
   useOnValueChange(
@@ -73,7 +80,7 @@ export function useSortable<T extends Data = Data>(input: UseSortableInput<T>) {
   );
   useOnValueChange(()=>data, () => data && (sortable.value.data = data));
   useOnValueChange(
-    ()=>index,
+    ()=>index.value,
     () => {
       if (manager.value?.dragOperation.status.idle && transition?.idle) {
         sortable.value.refreshShape();
@@ -98,15 +105,9 @@ export function useSortable<T extends Data = Data>(input: UseSortableInput<T>) {
   useOnValueChange(()=>transition, () => (sortable.value.transition = transition));
 
   return {
-    get isDragSource() {
-      return isDragSource.value;
-    },
-    get isDropTarget() {
-      return isDropTarget.value;
-    },
-    get status() {
-      return status.value;
-    },
+    isDragSource,
+    isDropTarget,
+    status,
     handleRef: (element: Element | null) => {
       sortable.value.handle = element ?? undefined;
     },

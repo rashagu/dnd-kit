@@ -11,11 +11,7 @@ export function useDragOperation() {
   const target = useComputed(() => manager.value?.dragOperation.target);
 
   return {
-    get source() {
-      return source.value;
-    },
-    get target() {
-      return target.value;
-    },
+    source,
+    target,
   };
 }

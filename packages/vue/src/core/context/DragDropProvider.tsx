@@ -8,7 +8,7 @@ import {useRenderer} from './renderer.ts';
 import {defineComponent, h, PropType, shallowRef, useSlots} from 'vue';
 
 
-type Events = DragDropEvents<Draggable, Droppable, DragDropManager>;
+export type Events = DragDropEvents<Draggable, Droppable, DragDropManager>;
 
 export interface Props extends DragDropManagerInput {
   manager?: DragDropManager;

@@ -17,7 +17,7 @@ import {
 } from '../../components/index.ts';
 import {createRange} from '../../../utilities/createRange.ts';
 import {cloneDeep} from '../../../utilities/cloneDeep.ts';
-import {defineComponent, h, ref} from 'vue';
+import {computed, defineComponent, h, ref} from 'vue';
 
 interface Props {
   debug?: boolean;
@@ -71,7 +71,7 @@ export const MultipleLists = defineComponent({
         <DragDropProvider
           plugins={props.debug ? [...defaultPreset.plugins, Debug] : undefined}
           onDragStart={() => {
-            snapshot.value = cloneDeep(items);
+            snapshot.value = cloneDeep(items.value);
           }}
           onDragOver={(event) => {
             const {source, target} = event.operation;
@@ -166,16 +166,21 @@ const SortableItem = defineComponent({
     onRemove: Function,
   },
   setup(props, { slots }) {
-    const {handleRef, ref:ref_, isDragSource} = useSortable({
-      id: props.id,
-      group: props.column,
+    const {handleRef, ref: ref_, isDragSource} = useSortable({
+      id: computed(()=>{
+        console.log(props.id);
+        return props.id
+      }),
+      group: computed(()=>props.column),
       accept: 'item',
       type: 'item',
       feedback: 'clone',
-      index: props.index,
+      index: computed(()=>{
+        console.log(props.index);
+        return props.index
+      }),
     });
     return ()=>{
-
       return (
         <Item
           ref={ref_}
@@ -218,11 +223,11 @@ const SortableColumn = defineComponent({
   },
   setup(props, { slots }) {
     const {handleRef, isDragSource, ref:ref_} = useSortable({
-      id: props.id,
+      id: computed(()=>props.id),
       accept: ['column', 'item'],
       collisionPriority: CollisionPriority.Low,
       type: 'column',
-      index: props.index,
+      index: computed(()=>props.index),
     });
 
 

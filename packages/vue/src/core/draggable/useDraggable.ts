@@ -55,12 +55,8 @@ export function useDraggable<T extends Data = Data>(
 
   return {
     draggable,
-    get isDragSource() {
-      return isDragSource.value;
-    },
-    get status() {
-      return status.value;
-    },
+    isDragSource,
+    status,
     handleRef: (element: Element | null) => {
       draggable.value.handle = element ?? undefined;
     },

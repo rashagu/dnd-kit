@@ -1,21 +1,27 @@
-import {computed} from '@dnd-kit/state';
+import {computed, effect} from '@dnd-kit/state';
 import {useSignal} from './useSignal.ts';
-import {shallowRef, watch} from 'vue';
+import {ShallowRef, shallowRef, watch} from 'vue';
 
 export function useComputed<T = any>(
   compute: () => T,
   dependencies: any[] = [],
   sync = () => false
-) {
+): ShallowRef<T> {
   const $compute = shallowRef(compute);
   $compute.value = compute;
-  const s = shallowRef(computed(() => $compute.value()))
+  const watchValue = shallowRef(computed(() => $compute.value()))
   watch(dependencies, ()=>{
-    s.value = computed(() => $compute.value())
+    watchValue.value = computed(() => $compute.value())
   })
 
-  return useSignal(
-    s,
+  const value = useSignal(
+    watchValue,
     sync
-  );
+  )
+  const effectValue = shallowRef(value.value?.value)
+  effect(()=>{
+    effectValue.value = value.value?.value
+  })
+
+  return effectValue;
 }

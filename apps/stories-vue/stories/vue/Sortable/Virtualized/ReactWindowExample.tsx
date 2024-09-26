@@ -29,7 +29,7 @@ export const ReactWindowExample = defineComponent({
         <DragDropProvider
           plugins={props.debug ? [Debug, ...defaultPreset.plugins] : undefined}
           onDragStart={() => {
-            snapshot.value = cloneDeep(items);
+            snapshot.value = cloneDeep(items.value);
           }}
           onDragOver={(event) => {
             const {source, target} = event.operation;

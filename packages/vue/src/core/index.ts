@@ -11,7 +11,7 @@ export {
   useDroppable,
   type UseDroppableInput,
 } from './droppable/useDroppable.ts';
-
+export type { Events } from './context/DragDropProvider.tsx'
 export {useDragDropManager} from './hooks/useDragDropManager.ts';
 
 export {useDragOperation} from './hooks/useDragOperation.ts';

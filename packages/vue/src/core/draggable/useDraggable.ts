@@ -61,6 +61,15 @@ export function useDraggable<T extends Data = Data>(
       draggable.value.handle = element ?? undefined;
     },
     ref: (element: Element | null) => {
+      if (
+        !element &&
+        draggable.value.element?.isConnected &&
+        !draggable.value.manager?.dragOperation.status.idle
+      ) {
+        return;
+      }
+
+
       draggable.value.element = element ?? undefined;
     },
   };

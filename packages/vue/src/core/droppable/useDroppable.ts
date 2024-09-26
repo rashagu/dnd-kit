@@ -47,6 +47,14 @@ export function useDroppable<T extends Data = Data>(
     isDropTarget,
     // isDropTarget: isDropTarget_,
     ref: (element: Element | null) => {
+      if (
+        !element &&
+        droppable.value.element?.isConnected &&
+        !droppable.value.manager?.dragOperation.status.idle
+      ) {
+        return;
+      }
+
       droppable.value.element = element ?? undefined;
     },
     droppable,

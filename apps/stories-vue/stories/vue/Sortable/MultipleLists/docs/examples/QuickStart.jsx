@@ -20,7 +20,7 @@ export function Example({style = styles}) {
         const {source, target} = event.operation;
 
         if (source && target) {
-          setItems((items) => move(items, source, target));
+          setItems((items) => move(items, event));
         }
       }}
     >

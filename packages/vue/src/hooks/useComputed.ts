@@ -1,12 +1,12 @@
 import {computed, effect} from '@dnd-kit/state';
 import {useSignal} from './useSignal.ts';
-import {ShallowRef, shallowRef, watch} from 'vue';
+import {ShallowRef, shallowRef, watch, computed  as computedVue} from 'vue';
 
 export function useComputed<T = any>(
   compute: () => T,
   dependencies: any[] = [],
   sync = () => false
-): ShallowRef<T> {
+) {
   const $compute = shallowRef(compute);
   $compute.value = compute;
   const watchValue = shallowRef(computed(() => $compute.value()))
@@ -18,10 +18,16 @@ export function useComputed<T = any>(
     watchValue,
     sync
   )
-  const effectValue = shallowRef(value.value?.value)
-  effect(()=>{
-    effectValue.value = value.value?.value
-  })
 
-  return effectValue;
+
+  return computedVue({
+    // getter
+    get() {
+      return value.value
+    },
+    // setter
+    set(newValue) {
+      // 注意：我们这里使用的是解构赋值语法
+    }
+  });
 }

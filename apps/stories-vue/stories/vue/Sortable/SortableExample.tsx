@@ -81,7 +81,7 @@ export const SortableExample = defineComponent({
 
             if (props.optimistic) return;
 
-            items.value = move(items.value, source, target);
+            items.value = move(items.value, event);
           }}
           onDragEnd={(event) => {
             const {source, target} = event.operation;
@@ -91,7 +91,7 @@ export const SortableExample = defineComponent({
               return;
             }
 
-            items.value = move(items.value, source, target);
+            items.value = move(items.value, event);
           }}
         >
           <Wrapper layout={props.layout}>
@@ -174,6 +174,7 @@ export const SortableItem = defineComponent({
     });
 
     return () => {
+      console.log(isDragSource?.value);
       return (
         <Item
           ref={element}

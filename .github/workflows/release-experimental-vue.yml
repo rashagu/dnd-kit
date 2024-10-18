@@ -1,0 +1,36 @@
+name: Release experimental branch
+on:
+  push:
+    branches:
+      - experimental-vue
+jobs:
+  release:
+    name: ${{ matrix.channel }}
+    runs-on: ubuntu-latest
+    environment: production
+    strategy:
+      max-parallel: 1
+      matrix:
+        channel:
+          - current
+          - beta
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20
+          # https://github.com/atlassian/changesets/issues/550#issuecomment-811245508
+          registry-url: https://registry.npmjs.org
+
+      - uses: oven-sh/setup-bun@v1
+      - run: bun install && bun run build
+
+      - name: Run publish
+        run: cd packages && cd vue && npm run publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+

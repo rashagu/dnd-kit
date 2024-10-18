@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {DragDropProvider} from '@dnd-kit/vue';
-import {useSortable} from '@dnd-kit/vue/sortable';
+import {DragDropProvider} from '@kousum/dnd-kit-vue';
+import {useSortable} from '@kousum/dnd-kit-vue/sortable';
 import {move} from '@dnd-kit/helpers';
 
 const styles = {display: 'inline-flex', flexDirection: 'row', gap: 20};

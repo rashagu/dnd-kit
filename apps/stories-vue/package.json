@@ -13,11 +13,11 @@
   "dependencies": {
     "@dnd-kit/abstract": "*",
     "@dnd-kit/dom": "*",
-    "@dnd-kit/vue": "*",
+    "@kousum/dnd-kit-vue": "*",
     "@dnd-kit/helpers": "*",
     "clipboard": "^2.0.11",
     "prismjs": "^1.29.0",
-    "vue": "^3.5.8",
+    "vue": "^3.5.12",
     "@kousum/vue3-window": "0.0.6"
   },
   "devDependencies": {

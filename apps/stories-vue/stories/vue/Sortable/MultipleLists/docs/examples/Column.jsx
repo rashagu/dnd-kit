@@ -1,5 +1,5 @@
 import React from 'react';
-import {useDroppable} from '@dnd-kit/vue';
+import {useDroppable} from '@kousum/dnd-kit-vue';
 import {CollisionPriority} from '@dnd-kit/abstract';
 
 const styles = {

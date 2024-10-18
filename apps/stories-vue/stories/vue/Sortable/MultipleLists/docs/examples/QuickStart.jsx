@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {DragDropProvider} from '@dnd-kit/vue';
+import {DragDropProvider} from '@kousum/dnd-kit-vue';
 import {move} from '@dnd-kit/helpers';
 
 import {Column} from './Column';

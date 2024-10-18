@@ -1,7 +1,7 @@
 
 import type {UniqueIdentifier} from '@dnd-kit/abstract';
-import {DragDropProvider} from '@dnd-kit/vue';
-import {useSortable} from '@dnd-kit/vue/sortable';
+import {DragDropProvider} from '@kousum/dnd-kit-vue';
+import {useSortable} from '@kousum/dnd-kit-vue/sortable';
 import {defaultPreset} from '@dnd-kit/dom';
 import {Debug} from '@dnd-kit/dom/plugins/debug';
 import {move} from '@dnd-kit/helpers';

@@ -1,6 +1,6 @@
 
 import type {UniqueIdentifier} from '@dnd-kit/abstract';
-import {DragDropProvider, useDraggable, useDroppable} from '@dnd-kit/vue';
+import {DragDropProvider, useDraggable, useDroppable} from '@kousum/dnd-kit-vue';
 import {defaultPreset} from '@dnd-kit/dom';
 import {Debug} from '@dnd-kit/dom/plugins/debug';
 

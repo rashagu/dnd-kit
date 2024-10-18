@@ -1,7 +1,7 @@
 import {DragDropEvents} from '@dnd-kit/abstract';
 import type {DragDropManagerInput, Draggable, Droppable} from '@dnd-kit/dom';
 import {defaultPreset, DragDropManager} from '@dnd-kit/dom';
-import {useEffect, useOnValueChange} from '@dnd-kit/vue/hooks';
+import {useEffect, useOnValueChange} from '@kousum/dnd-kit-vue/hooks';
 
 import {DragDropContext} from './context.ts';
 import {useRenderer} from './renderer.ts';

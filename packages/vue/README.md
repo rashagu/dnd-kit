@@ -1,15 +1,15 @@
-# @dnd-kit/vue
+# @kousum/dnd-kit-vue
 
-[![Stable release](https://img.shields.io/npm/v/@dnd-kit/vue.svg)](https://npm.im/@dnd-kit/vue)
+[![Stable release](https://img.shields.io/npm/v/@kousum/dnd-kit-vue.svg)](https://npm.im/@kousum/dnd-kit-vue)
 
 The React layer for @dnd-kit, built on top of @dnd-kit/dom.
 
 ## Installation
 
-To get started, install the `@dnd-kit/vue` package via npm or yarn:
+To get started, install the `@kousum/dnd-kit-vue` package via npm or yarn:
 
 ```
-npm install @dnd-kit/vue
+npm install @kousum/dnd-kit-vue
 ```
 
 ## Usage

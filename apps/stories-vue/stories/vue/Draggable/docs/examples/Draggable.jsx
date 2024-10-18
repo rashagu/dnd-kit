@@ -1,5 +1,5 @@
 import React from 'react';
-import {useDraggable} from '@dnd-kit/vue';
+import {useDraggable} from '@kousum/dnd-kit-vue';
 
 export function Draggable({id}) {
   const {ref} = useDraggable({

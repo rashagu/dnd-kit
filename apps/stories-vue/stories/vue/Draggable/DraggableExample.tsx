@@ -1,7 +1,7 @@
 
 import type {Modifiers, Sensors} from '@dnd-kit/abstract';
 import type {FeedbackType} from '@dnd-kit/dom';
-import {DragDropProvider, useDraggable} from '@dnd-kit/vue';
+import {DragDropProvider, useDraggable} from '@kousum/dnd-kit-vue';
 
 import {Button, Handle} from '../components';
 import {DraggableIcon} from '../icons';

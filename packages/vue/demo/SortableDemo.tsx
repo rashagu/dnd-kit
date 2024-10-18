@@ -1,6 +1,6 @@
 import {defineComponent, ref, h, Fragment, useSlots, VNodeRef} from 'vue';
-import {useSortable} from '@dnd-kit/vue/sortable';
-import {DragDropProvider} from '@dnd-kit/vue';
+import {useSortable} from '@kousum/dnd-kit-vue/sortable';
+import {DragDropProvider} from '@kousum/dnd-kit-vue';
 
 const Sortable = defineComponent({
   props: {

@@ -1,7 +1,7 @@
 
 import {RestrictToWindow} from '@dnd-kit/dom/modifiers';
 import {SnapModifier} from '@dnd-kit/abstract/modifiers';
-import {DragDropProvider} from '@dnd-kit/vue';
+import {DragDropProvider} from '@kousum/dnd-kit-vue';
 
 import {Grid} from '../../components/index.ts';
 import {Draggable} from '../DraggableExample.tsx';

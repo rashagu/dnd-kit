@@ -5,8 +5,8 @@ import type {
 } from '@dnd-kit/abstract';
 import {FeedbackType, defaultPreset} from '@dnd-kit/dom';
 import {type SortableTransition} from '@dnd-kit/dom/sortable';
-import {DragDropProvider} from '@dnd-kit/vue';
-import {useSortable} from '@dnd-kit/vue/sortable';
+import {DragDropProvider} from '@kousum/dnd-kit-vue';
+import {useSortable} from '@kousum/dnd-kit-vue/sortable';
 import {directionBiased} from '@dnd-kit/collision';
 import {move} from '@dnd-kit/helpers';
 import {Debug} from '@dnd-kit/dom/plugins/debug';

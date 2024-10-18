@@ -1,1 +1,1 @@
-# @dnd-kit/vue
+# @kousum/dnd-kit-vue

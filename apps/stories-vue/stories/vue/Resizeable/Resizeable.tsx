@@ -8,7 +8,7 @@ import React, {
 } from 'react';
 import type {PropsWithChildren} from 'react';
 import type {UniqueIdentifier} from '@dnd-kit/abstract';
-import {DragDropProvider, useDraggable} from '@dnd-kit/vue';
+import {DragDropProvider, useDraggable} from '@kousum/dnd-kit-vue';
 
 import './Resizeable.css';
 import {Coordinates} from '@dnd-kit/geometry';

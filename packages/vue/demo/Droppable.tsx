@@ -1,5 +1,5 @@
 import {defineComponent, ref, h, Fragment, useSlots, onMounted, watch, VNodeRef} from 'vue';
-import {useDroppable} from "@dnd-kit/vue";
+import {useDroppable} from "@kousum/dnd-kit-vue";
 
 interface DroppableProps {
   name?: string

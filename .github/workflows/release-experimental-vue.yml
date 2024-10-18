@@ -1,8 +1,8 @@
-name: Release experimental branch
+name: Release experimental-vue branch
 on:
   push:
     branches:
-      - experimental-vue
+      - changeset-release/experimental-vue
 jobs:
   release:
     name: ${{ matrix.channel }}

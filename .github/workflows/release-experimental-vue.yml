@@ -30,7 +30,7 @@ jobs:
       - run: bun install && bun run build
 
       - name: Run publish
-        run: cd packages && cd vue && npm run publish
+        run: cd packages && cd vue && npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 

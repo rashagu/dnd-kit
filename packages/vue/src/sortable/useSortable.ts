@@ -3,14 +3,14 @@ import {batch, deepEqual} from '@dnd-kit/state';
 import {type Data} from '@dnd-kit/abstract';
 import {Sortable, defaultSortableTransition} from '@dnd-kit/dom/sortable';
 import type {SortableInput} from '@dnd-kit/dom/sortable';
-import {useDragDropManager, useInstance} from '@dnd-kit/vue';
+import {useDragDropManager, useInstance} from '@kousum/dnd-kit-vue';
 import {
   useComputed,
   useImmediateEffect as immediateEffect,
   useIsomorphicLayoutEffect,
   useOnValueChange,
-} from '@dnd-kit/vue/hooks';
-import {currentValue, type RefOrValue} from '@dnd-kit/vue/utilities';
+} from '@kousum/dnd-kit-vue/hooks';
+import {currentValue, type RefOrValue} from '@kousum/dnd-kit-vue/utilities';
 
 export interface UseSortableInput<T extends Data = Data>
   extends Omit<SortableInput<T>, 'handle' | 'element' | 'target'> {

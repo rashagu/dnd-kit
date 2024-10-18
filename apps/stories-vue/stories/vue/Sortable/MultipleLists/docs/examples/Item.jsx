@@ -1,5 +1,5 @@
 import React from 'react';
-import {useSortable} from '@dnd-kit/vue/sortable';
+import {useSortable} from '@kousum/dnd-kit-vue/sortable';
 
 export function Item({id, column, index}) {
   const {ref} = useSortable({

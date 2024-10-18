@@ -1,4 +1,4 @@
-import {useComputed} from '@dnd-kit/vue/hooks';
+import {useComputed} from '@kousum/dnd-kit-vue/hooks';
 
 import {useDragDropManager} from './useDragDropManager.ts';
 

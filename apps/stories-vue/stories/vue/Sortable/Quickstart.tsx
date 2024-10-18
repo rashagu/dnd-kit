@@ -1,4 +1,4 @@
-import {useSortable} from '@dnd-kit/vue/sortable';
+import {useSortable} from '@kousum/dnd-kit-vue/sortable';
 
 export function Sortable({id, index}: {id: number; index: number}) {
   const {ref} = useSortable({id, index});

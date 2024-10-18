@@ -1,5 +1,5 @@
 import React from 'react';
-import {DragDropProvider} from '@dnd-kit/vue';
+import {DragDropProvider} from '@kousum/dnd-kit-vue';
 
 import {Draggable} from './Draggable';
 

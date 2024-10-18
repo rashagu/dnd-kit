@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {CollisionPriority} from '@dnd-kit/abstract';
-import {DragDropProvider, useDroppable} from '@dnd-kit/vue';
-import {useSortable} from '@dnd-kit/vue/sortable';
+import {DragDropProvider, useDroppable} from '@kousum/dnd-kit-vue';
+import {useSortable} from '@kousum/dnd-kit-vue/sortable';
 import {move} from '@dnd-kit/helpers';
 
 import {Item} from './Item';

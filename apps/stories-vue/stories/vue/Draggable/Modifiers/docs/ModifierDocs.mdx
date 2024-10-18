@@ -35,7 +35,7 @@ Modifiers can be applied globally or to individual draggable elements.
 Modifiers can be applied globally by passing them to the `<DragDropProvider>` component.
 
 ```jsx
-import {DragDropProvider} from '@dnd-kit/vue';
+import {DragDropProvider} from '@kousum/dnd-kit-vue';
 import {RestrictToVerticalAxis} from '@dnd-kit/abstract/modifiers';
 import {RestrictToWindow} from '@dnd-kit/dom/modifiers';
 
@@ -55,7 +55,7 @@ function App() {
 Modifiers can also be applied to individual draggable elements by passing them to the `modifiers` prop.
 
 ```jsx
-import {useDraggable} from '@dnd-kit/vue';
+import {useDraggable} from '@kousum/dnd-kit-vue';
 import {RestrictToVerticalAxis} from '@dnd-kit/abstract/modifiers';
 import {RestrictToWindow} from '@dnd-kit/dom/modifiers';
 

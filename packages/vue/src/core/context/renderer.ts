@@ -1,6 +1,6 @@
 import {nextTick, ref, shallowRef} from 'vue';
 import type {Renderer} from '@dnd-kit/abstract';
-import {useConstant} from '@dnd-kit/vue/hooks';
+import {useConstant} from '@kousum/dnd-kit-vue/hooks';
 
 export function useRenderer() {
 

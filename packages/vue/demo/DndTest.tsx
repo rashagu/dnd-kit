@@ -1,6 +1,6 @@
 import {defineComponent, ref, h, Fragment, useSlots, VNodeRef} from 'vue';
 
-import {useDraggable} from '@dnd-kit/vue';
+import {useDraggable} from '@kousum/dnd-kit-vue';
 
 
 const DndTest = defineComponent({

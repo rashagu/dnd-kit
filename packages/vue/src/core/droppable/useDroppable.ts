@@ -3,8 +3,8 @@ import type {Data} from '@dnd-kit/abstract';
 import {Droppable} from '@dnd-kit/dom';
 import {deepEqual, effect} from '@dnd-kit/state';
 import type {DroppableInput} from '@dnd-kit/dom';
-import {useComputed, useOnValueChange} from '@dnd-kit/vue/hooks';
-import {currentValue, type RefOrValue} from '@dnd-kit/vue/utilities';
+import {useComputed, useOnValueChange} from '@kousum/dnd-kit-vue/hooks';
+import {currentValue, type RefOrValue} from '@kousum/dnd-kit-vue/utilities';
 
 import {useInstance} from '../hooks/useInstance.ts';
 import {ref, shallowRef, unref} from 'vue';

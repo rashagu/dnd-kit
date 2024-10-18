@@ -4,7 +4,7 @@ import type {CleanupFunction} from '@dnd-kit/state';
 import {useDragDropManager} from './useDragDropManager.ts';
 import {defaultManager} from '../context/context.ts';
 import {Ref, ref, ShallowRef, shallowRef} from 'vue';
-import {useEffect} from '@dnd-kit/vue/hooks';
+import {useEffect} from '@kousum/dnd-kit-vue/hooks';
 
 export interface Instance<
   T extends DragDropManager<any, any> = DragDropManager<any, any>,

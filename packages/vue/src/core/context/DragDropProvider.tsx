@@ -112,7 +112,7 @@ export const DragDropProvider = defineComponent({
       setManager(manager);
 
       return manager.destroy;
-    }, [renderer]);
+    }, [renderer, ()=>props.manager]);
 
     useOnValueChange(
       ()=>props.plugins,

@@ -5,7 +5,7 @@ import {useSortable} from '@kousum/dnd-kit-vue/sortable';
 import {defaultPreset} from '@dnd-kit/dom';
 import {Debug} from '@dnd-kit/dom/plugins/debug';
 import {move} from '@dnd-kit/helpers';
-import {FixedSizeList as List} from '@kousum/vue3-window';
+import { FixedSizeList as List } from '@kousum/vue3-window';
 
 import {Item, Handle} from '../../components';
 import {createRange, cloneDeep} from '../../../utilities';
@@ -25,9 +25,27 @@ export const ReactWindowExample = defineComponent({
 
     return ()=>{
 
-     return (
-        <DragDropProvider
-          plugins={props.debug ? [Debug, ...defaultPreset.plugins] : undefined}
+      return (  <div>
+        <List
+        height={150}
+        itemCount={100000}
+        itemSize={35}
+        itemData={items.value}
+        width={300}
+        >
+          {{
+            default: (slotProps) => {
+              return <div
+                key={slotProps.key}>
+                Row {slotProps.key}
+              </div>;
+              }
+            }}
+            </List>
+            </div>)
+            return (
+            <DragDropProvider
+            plugins={props.debug ? [Debug, ...defaultPreset.plugins] : undefined}
           onDragStart={() => {
             snapshot.value = cloneDeep(items.value);
           }}

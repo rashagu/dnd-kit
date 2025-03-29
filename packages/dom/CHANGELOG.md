@@ -1,5 +1,23 @@
 # @dnd-kit/dom
 
+## 0.0.11
+
+### Patch Changes
+
+- [#1645](https://github.com/clauderic/dnd-kit/pull/1645) [`043c280`](https://github.com/clauderic/dnd-kit/commit/043c2807a7aa290ce9838a638422245b0bd89cf1) Thanks [@clauderic](https://github.com/clauderic)! - Add fallback logic to type-guards when instance checks fail to identify instances, for example to test if an element is an `Element` or `HTMLElement` or `SVGElement`, or if an `AnimationEffect` is a `KeyframeEffect`.
+
+- [#1644](https://github.com/clauderic/dnd-kit/pull/1644) [`ee40aac`](https://github.com/clauderic/dnd-kit/commit/ee40aacda6c015b1f357182c461650fde4c6704e) Thanks [@github-actions](https://github.com/apps/github-actions)! - **Feedback**: Use `revert` instead of `unset` to reset styles applied by the `popover` attribute.
+
+- [#1643](https://github.com/clauderic/dnd-kit/pull/1643) [`635d94f`](https://github.com/clauderic/dnd-kit/commit/635d94f6e719bcdf50e0024b6d1f09b9bb46c8a5) Thanks [@clauderic](https://github.com/clauderic)! - Fix a bug in the `Scroller` plugin that would always use `document.getElementFromPoint` instead of the document of the source element.
+
+- [#1644](https://github.com/clauderic/dnd-kit/pull/1644) [`3080d2c`](https://github.com/clauderic/dnd-kit/commit/3080d2c8c122beabc41fb8d79beceb2188a01947) Thanks [@github-actions](https://github.com/apps/github-actions)! - **Feedback**: Set `popover` attribute value to `manual`.
+
+- Updated dependencies []:
+  - @dnd-kit/abstract@0.0.11
+  - @dnd-kit/collision@0.0.11
+  - @dnd-kit/geometry@0.0.11
+  - @dnd-kit/state@0.0.11
+
 ## 0.0.10
 
 ### Patch Changes

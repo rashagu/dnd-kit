@@ -79,6 +79,7 @@ export const SortableExample = defineComponent({
           onDragOver={(event) => {
             const {source, target} = event.operation;
 
+            console.log(event.operation.target?.id, event.operation.source?.id);
             if (props.optimistic) return;
 
             items.value = move(items.value, event);
@@ -86,7 +87,7 @@ export const SortableExample = defineComponent({
           onDragEnd={(event) => {
             const {source, target} = event.operation;
 
-            console.log(event);
+            console.log(event.operation.target?.id, event.operation.source?.id);
             if (event.canceled) {
               return;
             }
@@ -162,7 +163,7 @@ export const SortableItem = defineComponent({
   setup(props, {slots}) {
     const element = ref<Element | null>(null);
     const handleRef = ref<HTMLButtonElement | null>(null);
-    const {isDragSource} = useSortable({
+    const {isDragSource, sortable} = useSortable({
       id: props.id,
       index: props.index,
       element,

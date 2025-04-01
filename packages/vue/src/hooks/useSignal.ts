@@ -1,35 +1,35 @@
 import {effect, Signal} from '@dnd-kit/state';
 import {useIsomorphicLayoutEffect} from './useIsomorphicLayoutEffect.ts';
 import {getCurrentInstance, nextTick, ShallowRef, shallowRef, toRaw} from 'vue';
-import {useRef} from 'react';
-
-/** Wrap the given value in a Signal if it isn't already one, and make changes trigger a re-render. */
+import {useForceUpdate} from './useForceUpdate.ts';
+function flushSync(fn: () => void) {
+  fn()
+}
+/** Trigger a re-render when reading a signal. */
 export function useSignal<T = any>(signal: ShallowRef<Signal<T>>, sync = ()=>false) {
-
-  let val = toRaw(signal.value)?.peek();
+  const previous = shallowRef(toRaw(signal.value)?.peek());
   const read = shallowRef(false);
-  const update = shallowRef(val);
-  const currentInstance = getCurrentInstance()
+  const forceUpdate = useForceUpdate();
 
   useIsomorphicLayoutEffect(
     () =>
       effect(() => {
-        let val = toRaw(signal.value)?.peek();
-        if (!read.value) return;
+        const previousValue = previous.value;
+        const currentValue = signal.value;
 
-        if (val !== (val = toRaw(signal.value).value)) {
+        if (previousValue !== currentValue) {
+          previous.value = currentValue;
+
+          if (!read.value) return;
+
           if (sync()) {
-            //TODO
-            // flushSync(() => update.value = val);
-            currentInstance?.proxy?.$forceUpdate()
-            nextTick(() => update.value = val)
+            flushSync(forceUpdate);
           } else {
-            update.value = val;
-            currentInstance?.proxy?.$forceUpdate()
+            forceUpdate();
           }
         }
       }),
-    [()=>signal, sync]
+    [signal, sync, forceUpdate]
   );
 
   const effectValue = shallowRef(signal.value?.value)

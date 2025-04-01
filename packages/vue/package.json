@@ -1,6 +1,6 @@
 {
   "name": "@kousum/dnd-kit-vue",
-  "version": "0.0.6-beta-20241014170855",
+  "version": "0.0.11-beta-20250329024615",
   "main": "./index.cjs",
   "module": "./index.js",
   "type": "module",
@@ -56,9 +56,9 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@dnd-kit/abstract": "^0.0.6-beta-20241014170855",
-    "@dnd-kit/dom": "^0.0.6-beta-20241014170855",
-    "@dnd-kit/state": "^0.0.6-beta-20241014170855",
+    "@dnd-kit/abstract": "^0.0.11-beta-20250329024615",
+    "@dnd-kit/dom": "^0.0.11-beta-20250329024615",
+    "@dnd-kit/state": "^0.0.11-beta-20250329024615",
     "tslib": "^2.6.2"
   },
   "peerDependencies": {
@@ -66,8 +66,8 @@
   },
   "devDependencies": {
     "eslint": "^8.38.0",
-    "vue": "3.5.12",
-    "tsup": "^8.1.0",
+    "vue": "3.5.13",
+    "tsup": "~8.2.0",
     "typescript": "^5.5.2"
   },
   "publishConfig": {

@@ -4,9 +4,9 @@ import {useConstant} from '@kousum/dnd-kit-vue/hooks';
 
 export function useRenderer() {
 
-  const rendering = shallowRef<Promise<void>>();
+  const rendering = shallowRef<Promise<void>>(null);
   const transitionCount = ref(0);
-  const resolver = shallowRef<() => void>();
+  const resolver = shallowRef<() => void>(null);
   const renderer = useConstant<Renderer>(() => ({
     get rendering() {
       return rendering.value ?? Promise.resolve();
@@ -15,7 +15,7 @@ export function useRenderer() {
 
   function onResolve(){
     resolver.value?.();
-    rendering.value = undefined;
+    rendering.value = null;
   }
 
 

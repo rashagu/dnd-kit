@@ -1,7 +1,7 @@
 import {shallowRef, watch} from 'vue';
 
 export function useConstant<T = any>(initializer: () => T) {
-  const ref = shallowRef<T>();
+  const ref = shallowRef<T | null>(null);
 
 
   watch(initializer, (v)=>{

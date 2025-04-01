@@ -1,9 +1,9 @@
 import type {DragDropManager} from '@dnd-kit/abstract';
 import type {CleanupFunction} from '@dnd-kit/state';
+import {useIsomorphicLayoutEffect} from '@kousum/dnd-kit-vue/hooks';
 
 import {useDragDropManager} from './useDragDropManager.ts';
-import {defaultManager} from '../context/context.ts';
-import {Ref, ref, ShallowRef, shallowRef} from 'vue';
+import {Ref, ref, ShallowRef, shallowRef, watch} from 'vue';
 import {useEffect} from '@kousum/dnd-kit-vue/hooks';
 
 export interface Instance<
@@ -17,16 +17,18 @@ export function useInstance<T extends Instance>(
   initializer: (manager: DragDropManager<any, any> | undefined) => T
 ) {
   const manager = useDragDropManager() ?? undefined;
-  const instance = shallowRef<T>(initializer(manager.value === defaultManager ? undefined : manager.value));
+  // const instance = shallowRef<T>(initializer(manager.value === defaultManager ? undefined : manager.value));
+  const instance = shallowRef<T>(initializer(manager.value));
+  watch(manager, ()=>{
+    if (instance.value.manager !== manager.value) {
+      instance.value.manager = manager.value;
+    }
+  }, {immediate: true});
 
-  useEffect(() => {
-    instance.value.manager = manager.value;
+  useIsomorphicLayoutEffect(()=>{
+    instance.value.register?.()
+  }, [manager, instance]);
 
-    // Register returns an unregister callback
-
-    const unregister = instance.value.register();
-    return unregister;
-  }, [instance, manager]);
 
   return instance as ShallowRef<T>;
 }

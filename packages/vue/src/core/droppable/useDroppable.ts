@@ -3,7 +3,12 @@ import type {Data} from '@dnd-kit/abstract';
 import {Droppable} from '@dnd-kit/dom';
 import {deepEqual, effect} from '@dnd-kit/state';
 import type {DroppableInput} from '@dnd-kit/dom';
-import {useComputed, useOnValueChange} from '@kousum/dnd-kit-vue/hooks';
+import {
+  useComputed,
+  useOnValueChange,
+  useOnElementChange,
+  useDeepSignal,
+} from '@kousum/dnd-kit-vue/hooks';
 import {currentValue, type RefOrValue} from '@kousum/dnd-kit-vue/utilities';
 
 import {useInstance} from '../hooks/useInstance.ts';
@@ -24,19 +29,21 @@ export function useDroppable<T extends Data = Data>(
       new Droppable(
         {
           ...input,
+          register: false,
           element: element.value,
         },
         manager
       )
   );
   const isDropTarget = useComputed(() => droppable.value.isDropTarget);
+  const trackedDroppalbe = useDeepSignal(droppable);
 
   useOnValueChange(()=>id, () => (droppable.value.id = id));
+  useOnElementChange(()=>element.value, () => (droppable.value.element = element.value));
   useOnValueChange(()=>accept, () => (droppable.value.id = id), undefined, deepEqual);
   useOnValueChange(()=>collisionDetector, () => (droppable.value.id = id));
   useOnValueChange(()=>data, () => data && (droppable.value.data = data));
   useOnValueChange(()=>disabled, () => (droppable.value.disabled = disabled === true));
-  useOnValueChange(()=>element.value, () => (droppable.value.element = element.value));
   useOnValueChange(()=>type, () => (droppable.value.id = id));
 
   // const isDropTarget_ = shallowRef<boolean>(isDropTarget.value)
@@ -44,6 +51,10 @@ export function useDroppable<T extends Data = Data>(
   //   isDropTarget_.value = isDropTarget.value
   // })
   return {
+    droppable: trackedDroppalbe,
+    // get isDropTarget() {
+    //   return trackedDroppalbe.value.isDropTarget;
+    // },
     isDropTarget,
     // isDropTarget: isDropTarget_,
     ref: (element: Element | null) => {
@@ -57,6 +68,5 @@ export function useDroppable<T extends Data = Data>(
 
       droppable.value.element = element ?? undefined;
     },
-    droppable,
   };
 }

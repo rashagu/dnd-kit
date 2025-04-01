@@ -2,6 +2,7 @@ import {DragDropEvents} from '@dnd-kit/abstract';
 import type {DragDropManagerInput, Draggable, Droppable} from '@dnd-kit/dom';
 import {defaultPreset, DragDropManager} from '@dnd-kit/dom';
 import {useEffect, useOnValueChange} from '@kousum/dnd-kit-vue/hooks';
+import {deepEqual} from '@dnd-kit/state';
 
 import {DragDropContext} from './context.ts';
 import {useRenderer} from './renderer.ts';
@@ -21,6 +22,7 @@ export interface Props extends DragDropManagerInput {
 }
 
 
+const options = [undefined, deepEqual] as const;
 
 export const DragDropProvider = defineComponent({
   props: {
@@ -116,15 +118,18 @@ export const DragDropProvider = defineComponent({
 
     useOnValueChange(
       ()=>props.plugins,
-      () => manager.value && (manager.value.plugins = props.plugins as any ?? defaultPreset.plugins)
+      () => manager.value && (manager.value.plugins = props.plugins as any ?? defaultPreset.plugins),
+      ...options
     );
     useOnValueChange(
       ()=>props.sensors,
-      () => manager.value && (manager.value.sensors = props.sensors as any ?? defaultPreset.sensors)
+      () => manager.value && (manager.value.sensors = props.sensors as any ?? defaultPreset.sensors),
+      ...options
     );
     useOnValueChange(
       ()=>props.modifiers,
-      () => manager.value && (manager.value.modifiers = props.modifiers as any ?? [])
+      () => manager.value && (manager.value.modifiers = props.modifiers as any ?? defaultPreset.modifiers),
+      ...options
     );
 
 

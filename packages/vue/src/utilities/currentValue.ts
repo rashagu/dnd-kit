@@ -1,12 +1,9 @@
-import type {ComputedRef, Ref, ShallowRef} from 'vue';
+import type {ComputedRef, ShallowRef} from 'vue';
 import {computed} from 'vue';
 
-export type RefOrValue<T> =
-  | T
-  | Ref<T | null | undefined>
-  | ShallowRef<T | null | undefined>
-  | null
-  | undefined;
+export type Ref<T> = ShallowRef<T | null | undefined>;
+
+export type RefOrValue<T> = T | Ref<T> | null | undefined | (() => T | undefined);
 
 export function currentValue<T>(
   value: RefOrValue<T>
@@ -18,6 +15,10 @@ export function currentValue<T>(
 
     if (typeof value === 'object' && 'value' in value) {
       return value.value ?? undefined;
+    }
+    if (typeof value === 'function') {
+      //@ts-ignore
+      return value?.()
     }
 
     return value;

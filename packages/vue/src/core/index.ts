@@ -1,6 +1,8 @@
 'use client';
 
 export {DragDropProvider} from './context/DragDropProvider.tsx';
+export {DragOverlay} from './draggable/DragOverlay.tsx';
+
 
 export {
   useDraggable,
@@ -13,6 +15,8 @@ export {
 } from './droppable/useDroppable.ts';
 export type { Events } from './context/DragDropProvider.tsx'
 export {useDragDropManager} from './hooks/useDragDropManager.ts';
+
+export {useDragDropMonitor} from './hooks/useDragDropMonitor.ts';
 
 export {useDragOperation} from './hooks/useDragOperation.ts';
 

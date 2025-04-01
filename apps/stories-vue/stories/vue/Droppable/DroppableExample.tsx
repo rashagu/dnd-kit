@@ -63,13 +63,13 @@ const Draggable = defineComponent({
   setup(props, {slots}) {
     const element = ref<Element | null>(null);
 
-    const {isDragSource} = useDraggable({
+    const {draggable} = useDraggable({
       id: props.id,
       element,
     });
     return ()=>{
       return (
-        <Button ref={element} shadow={isDragSource?.value}>
+        <Button ref={element} shadow={draggable?.value.isDragging}>
           <DraggableIcon />
         </Button>
       );
@@ -86,7 +86,7 @@ const Droppable = defineComponent({
     id: [String, Number],
   },
   setup(props, {slots}) {
-    const {ref, isDropTarget} = useDroppable({id: props.id});
+    const {ref, droppable, isDropTarget} = useDroppable({id: props.id});
 
     return ()=>{
       return (

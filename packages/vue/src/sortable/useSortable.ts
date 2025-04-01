@@ -3,12 +3,13 @@ import {batch, deepEqual} from '@dnd-kit/state';
 import {type Data} from '@dnd-kit/abstract';
 import {Sortable, defaultSortableTransition} from '@dnd-kit/dom/sortable';
 import type {SortableInput} from '@dnd-kit/dom/sortable';
-import {useDragDropManager, useInstance} from '@kousum/dnd-kit-vue';
+import {useInstance} from '@kousum/dnd-kit-vue';
 import {
-  useComputed,
   useImmediateEffect as immediateEffect,
   useIsomorphicLayoutEffect,
   useOnValueChange,
+  useOnElementChange,
+  useDeepSignal, useComputed,
 } from '@kousum/dnd-kit-vue/hooks';
 import {currentValue, type RefOrValue} from '@kousum/dnd-kit-vue/utilities';
 
@@ -33,8 +34,6 @@ export function useSortable<T extends Data = Data>(input: UseSortableInput<T>) {
   } = input;
 
 
-  const manager = useDragDropManager();
-
 
   const id = currentValue(input.id);
   const group = currentValue(input.group);
@@ -46,6 +45,7 @@ export function useSortable<T extends Data = Data>(input: UseSortableInput<T>) {
     return new Sortable(
       {
         ...input,
+        register: false,
         handle: handle.value,
         element: element.value,
         target: target.value,
@@ -58,9 +58,11 @@ export function useSortable<T extends Data = Data>(input: UseSortableInput<T>) {
     );
   });
 
-  const isDropTarget = useComputed(() => sortable.value.isDropTarget);
+  const trackedSortable = useDeepSignal(sortable, shouldUpdateSynchronously);
   const isDragSource = useComputed(() => sortable.value.isDragSource);
-  const status = useComputed(() => sortable.value.status);
+  const isDragging = useComputed(() => sortable.value.isDragging);
+  const isDropping = useComputed(() => sortable.value.isDropping);
+  const isDropTarget = useComputed(() => sortable.value.isDropTarget);
 
   useOnValueChange(()=>id.value, () => (sortable.value.id = id.value!));
 
@@ -82,15 +84,15 @@ export function useSortable<T extends Data = Data>(input: UseSortableInput<T>) {
   useOnValueChange(
     ()=>index.value,
     () => {
-      if (manager.value?.dragOperation.status.idle && transition?.idle) {
+      if (sortable.value.manager?.dragOperation.status.idle && transition?.idle) {
         sortable.value.refreshShape();
       }
     },
     immediateEffect
   );
-  useOnValueChange(()=>handle.value, () => (sortable.value.handle = handle.value));
-  useOnValueChange(()=>element.value, () => (sortable.value.element = element.value));
-  useOnValueChange(()=>target.value, () => (sortable.value.target = target.value));
+  useOnElementChange(()=>handle.value, () => (sortable.value.handle = handle.value));
+  useOnElementChange(()=>element.value, () => (sortable.value.element = element.value));
+  useOnElementChange(()=>target.value, () => (sortable.value.target = target.value));
   useOnValueChange(()=>disabled, () => (sortable.value.disabled = disabled === true));
   useOnValueChange(()=>sensors, () => (sortable.value.sensors = sensors));
   useOnValueChange(
@@ -105,9 +107,26 @@ export function useSortable<T extends Data = Data>(input: UseSortableInput<T>) {
   useOnValueChange(()=>transition, () => (sortable.value.transition = transition));
 
   return {
+    sortable: trackedSortable,
     isDragSource,
+    isDragging,
+    isDropping,
     isDropTarget,
-    status,
+    // get isDragging() {
+    //   return trackedSortable.value.isDragging;
+    // },
+    // get isDropping() {
+    //   return trackedSortable.value.isDropping;
+    // },
+    // get isDragSource() {
+    //   return trackedSortable.value.isDragSource;
+    // },
+    // get isDropTarget() {
+    //   return trackedSortable.value.isDropTarget;
+    // },
+    // isDragSource,
+    // isDropTarget,
+    // status,
     handleRef: (element: Element | null) => {
       sortable.value.handle = element ?? undefined;
     },
@@ -115,7 +134,7 @@ export function useSortable<T extends Data = Data>(input: UseSortableInput<T>) {
       if (
         !element &&
         sortable.value.element?.isConnected &&
-        !manager?.value.dragOperation.status.idle
+        !sortable.value.manager?.dragOperation.status.idle
       ) {
         return;
       }
@@ -127,7 +146,7 @@ export function useSortable<T extends Data = Data>(input: UseSortableInput<T>) {
       if (
         !element &&
         sortable.value.element?.isConnected &&
-        !manager?.value.dragOperation.status.idle
+        !sortable.value.manager?.dragOperation.status.idle
       ) {
         return;
       }
@@ -138,7 +157,7 @@ export function useSortable<T extends Data = Data>(input: UseSortableInput<T>) {
       if (
         !element &&
         sortable.value.element?.isConnected &&
-        !manager?.value.dragOperation.status.idle
+        !sortable.value.manager?.dragOperation.status.idle
       ) {
         return;
       }
@@ -146,4 +165,11 @@ export function useSortable<T extends Data = Data>(input: UseSortableInput<T>) {
       sortable.value.target = element ?? undefined;
     },
   };
+}
+
+function shouldUpdateSynchronously(key: string, oldValue: any, newValue: any) {
+  // Update synchronously after drop animation
+  if (key === 'isDragSource' && !newValue && oldValue) return true;
+
+  return false;
 }

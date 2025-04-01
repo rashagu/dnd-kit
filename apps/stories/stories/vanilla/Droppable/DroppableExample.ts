@@ -18,9 +18,7 @@ export const DroppableExample = createVanillaStory(() => {
       element: draggableElement,
       effects: () => [
         () => {
-          const {status} = manager.dragOperation;
-
-          if (draggable.isDragSource && (status.dragging || status.dropped)) {
+          if (draggable.isDragging) {
             draggableElement.setAttribute('data-shadow', 'true');
 
             return () => {
@@ -58,10 +56,8 @@ export const DroppableExample = createVanillaStory(() => {
 
     if (event.operation.target?.id === 'droppable') {
       droppableElement.appendChild(draggableElement);
-      droppableElement.setAttribute('data-dropped', 'true');
     } else {
       wrapperElement.prepend(draggableElement);
-      droppableElement.removeAttribute('data-dropped');
     }
   });
 

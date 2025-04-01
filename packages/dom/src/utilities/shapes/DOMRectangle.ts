@@ -4,8 +4,8 @@ import {inverseTransform} from '../transform/inverseTransform.ts';
 import {getComputedStyles} from '../styles/getComputedStyles.ts';
 import {parseTransform, type Transform} from '../transform/index.ts';
 import {getBoundingRectangle} from '../bounding-rectangle/getBoundingRectangle.ts';
-import {getWindow} from '../execution-context/getWindow.ts';
 import {getFrameTransform} from '../frame/getFrameTransform.ts';
+import {isKeyframeEffect} from '../type-guards/isKeyframeEffect.ts';
 
 export interface DOMRectangleOptions {
   getBoundingClientRect?: (element: Element) => BoundingRectangle;
@@ -24,6 +24,7 @@ export class DOMRectangle extends Rectangle {
     const resetAnimations = forceFinishAnimations(element);
     const boundingRectangle = getBoundingClientRect(element);
     let {top, left, width, height} = boundingRectangle;
+    let updated: BoundingRectangle | undefined;
 
     const computedStyles = getComputedStyles(element);
     const parsedTransform = parseTransform(computedStyles);
@@ -37,18 +38,25 @@ export class DOMRectangle extends Rectangle {
 
     const projectedTransform = getProjectedTransform(element);
 
-    if (parsedTransform && (ignoreTransforms || projectedTransform)) {
-      const updated = inverseTransform(
+    if (parsedTransform) {
+      updated = inverseTransform(
         boundingRectangle,
         parsedTransform,
         computedStyles.transformOrigin
       );
 
-      top = updated.top;
-      left = updated.left;
-      width = updated.width;
-      height = updated.height;
+      if (ignoreTransforms || projectedTransform) {
+        top = updated.top;
+        left = updated.left;
+        width = updated.width;
+        height = updated.height;
+      }
     }
+
+    const intrinsic = {
+      width: updated?.width ?? width,
+      height: updated?.height ?? height,
+    };
 
     if (projectedTransform && !ignoreTransforms) {
       top = top + projectedTransform.y;
@@ -74,24 +82,27 @@ export class DOMRectangle extends Rectangle {
     super(left, top, width, height);
 
     this.scale = scale;
+    this.intrinsicWidth = intrinsic.width;
+    this.intrinsicHeight = intrinsic.height;
   }
+
+  public intrinsicWidth: number;
+  public intrinsicHeight: number;
 }
 
 /*
  * Get the projected transform of an element based on its final keyframe
  */
 function getProjectedTransform(element: Element): Transform | null {
-  const {KeyframeEffect} = getWindow(element);
   const animations = element.getAnimations();
   let projectedTransform: Transform | null = null;
 
   if (!animations.length) return null;
 
   for (const animation of animations) {
-    const keyframes =
-      animation.effect instanceof KeyframeEffect
-        ? animation.effect.getKeyframes()
-        : [];
+    const keyframes = isKeyframeEffect(animation.effect)
+      ? animation.effect.getKeyframes()
+      : [];
     const keyframe = keyframes[keyframes.length - 1];
 
     if (!keyframe) continue;
@@ -130,11 +141,10 @@ function getProjectedTransform(element: Element): Transform | null {
  * of an element without having to wait for the animations to finish.
  */
 function forceFinishAnimations(element: Element): (() => void) | undefined {
-  const {KeyframeEffect} = getWindow(element);
   const animations = element.ownerDocument
     .getAnimations()
     .filter((animation) => {
-      if (animation.effect instanceof KeyframeEffect) {
+      if (isKeyframeEffect(animation.effect)) {
         const {target} = animation.effect;
 
         if (target !== element && target?.contains(element)) {

@@ -1,14 +1,11 @@
 import {
   DragDropManager as AbstractDragDropManager,
   DragDropManagerInput,
+  type Modifiers,
   type Plugins,
   type Sensors,
 } from '@dnd-kit/abstract';
-import {
-  DOMRectangle,
-  type DOMRectangleOptions,
-  isElement,
-} from '@dnd-kit/dom/utilities';
+import {isElement} from '@dnd-kit/dom/utilities';
 
 import type {Draggable, Droppable} from '../entities/index.ts';
 import {
@@ -25,9 +22,11 @@ import {KeyboardSensor, PointerSensor} from '../sensors/index.ts';
 export interface Input extends DragDropManagerInput<DragDropManager> {}
 
 export const defaultPreset: {
+  modifiers: Modifiers<DragDropManager>;
   plugins: Plugins<DragDropManager>;
   sensors: Sensors<DragDropManager>;
 } = {
+  modifiers: [],
   plugins: [Accessibility, AutoScroller, Cursor, Feedback, PreventSelection],
   sensors: [
     PointerSensor.configure({
@@ -42,6 +41,11 @@ export const defaultPreset: {
           return undefined;
         }
 
+        if (pointerType === 'touch') {
+          return {
+            delay: {value: 250, tolerance: 5},
+          };
+        }
         return {
           delay: {value: 200, tolerance: 10},
           distance: {value: 5},

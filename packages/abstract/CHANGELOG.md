@@ -1,10 +1,70 @@
 # @dnd-kit/abstract
 
+## 0.0.11
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @dnd-kit/geometry@0.0.11
+  - @dnd-kit/state@0.0.11
+
+## 0.0.10
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @dnd-kit/geometry@0.0.10
+  - @dnd-kit/state@0.0.10
+
+## 0.0.9
+
+### Patch Changes
+
+- [#1600](https://github.com/clauderic/dnd-kit/pull/1600) [`e36d954`](https://github.com/clauderic/dnd-kit/commit/e36d95420148659ba78bdbefd3a0a24ec5d02b8f) Thanks [@github-actions](https://github.com/apps/github-actions)! - Added `nativeEvent` property to `dragstart`, `dragmove` and `dragend` events. This can be used to distinguish user triggered events from sensor triggered events, as user or plugin triggered events will typically not have an associated `event` attached.
+
+- [#1600](https://github.com/clauderic/dnd-kit/pull/1600) [`b7f1cf8`](https://github.com/clauderic/dnd-kit/commit/b7f1cf8f9e15a285c45f896e092f61001335cdff) Thanks [@github-actions](https://github.com/apps/github-actions)! - Fixed a bug in the `CollisionObserver` where the initial set of collisions when a drag operation is initiated were not being set and notified.
+
+- [#1600](https://github.com/clauderic/dnd-kit/pull/1600) [`3e629cc`](https://github.com/clauderic/dnd-kit/commit/3e629cc81dbaf9d112c4f1d2c10c75eb6779cf4e) Thanks [@github-actions](https://github.com/apps/github-actions)! - Added the option to trigger `move` actions that are not propagated to `dragmove` listeners. This can be useful when firing a `dragmove` action in response to another `dragmove` event to avoid an infinite loop.
+
+- [#1600](https://github.com/clauderic/dnd-kit/pull/1600) [`ce31da7`](https://github.com/clauderic/dnd-kit/commit/ce31da736ec5d4f48bab45430be7b57223d60ee7) Thanks [@github-actions](https://github.com/apps/github-actions)! - Added `dragOperation.shape.initial` to the list of dependencies that cause the `transform` and `modifiers` to be re-calculated.
+
+- Updated dependencies [[`60e7297`](https://github.com/clauderic/dnd-kit/commit/60e72979850bfe4cbb8e2b2e2b8e84bce9edc9f5), [`8ae7014`](https://github.com/clauderic/dnd-kit/commit/8ae70143bc404bff7678fa8e8390a640c16f2579)]:
+  - @dnd-kit/geometry@0.0.9
+  - @dnd-kit/state@0.0.9
+
+## 0.0.8
+
+### Patch Changes
+
+- [#1598](https://github.com/clauderic/dnd-kit/pull/1598) [`c9716cf`](https://github.com/clauderic/dnd-kit/commit/c9716cf7b8b846faab451bd2f60c53c77d2d24ba) Thanks [@github-actions](https://github.com/apps/github-actions)! - Added `isDragging` and `isDropping` properties to `draggable` and `sortable` instances.
+
+- [#1598](https://github.com/clauderic/dnd-kit/pull/1598) [`3ea0d31`](https://github.com/clauderic/dnd-kit/commit/3ea0d314649b186bfe0524d50145625da13a8787) Thanks [@github-actions](https://github.com/apps/github-actions)! - Added optional `register` argument to instances of `Entity` to disable automatic registration of instances that have a manager supplied on initialization.
+
+- [#1597](https://github.com/clauderic/dnd-kit/pull/1597) [`3cf4db1`](https://github.com/clauderic/dnd-kit/commit/3cf4db126813ebe6ddfc025df5e42e9bfcfa9c38) Thanks [@clauderic](https://github.com/clauderic)! - Added the `registerEffect` method that can be invoked by sub-classes that extend the base `Plugin` class to register effects and automatically dispose of them when the plugin instance is destroyed.
+
+- Updated dependencies []:
+  - @dnd-kit/geometry@0.0.8
+  - @dnd-kit/state@0.0.8
+
+## 0.0.7
+
+### Patch Changes
+
+- [#1592](https://github.com/clauderic/dnd-kit/pull/1592) [`c1dadef`](https://github.com/clauderic/dnd-kit/commit/c1dadef118f8f5f096d36dac314bfe317ea950ce) Thanks [@github-actions](https://github.com/apps/github-actions)! - Fire a cancelled `dragend` event when a drag operation is interrupted by the `DragDropManager` being destroyed during an operation.
+
+- [#1592](https://github.com/clauderic/dnd-kit/pull/1592) [`cef9b46`](https://github.com/clauderic/dnd-kit/commit/cef9b46c5ed017e6a601b1d0ee9d0f05b7bbd19f) Thanks [@github-actions](https://github.com/apps/github-actions)! - Fix global modifiers set on `DragDropManager` / `<DragDropProvider>` being destroyed after the first drag operation.
+
+- Updated dependencies []:
+  - @dnd-kit/geometry@0.0.7
+  - @dnd-kit/state@0.0.7
+
 ## 0.0.6
 
 ### Patch Changes
 
 - [#1553](https://github.com/clauderic/dnd-kit/pull/1553) [`984b5ab`](https://github.com/clauderic/dnd-kit/commit/984b5ab7bec3145dedb9c9b3b560ffbf7e54b919) Thanks [@chrisvxd](https://github.com/chrisvxd)! - Reconfigure the manager when the input changes.
+
+- [#1567](https://github.com/clauderic/dnd-kit/pull/1567) [`081b7f2`](https://github.com/clauderic/dnd-kit/commit/081b7f2a11da2aad8ce3da7f0579974415d1fdf0) Thanks [@chrisvxd](https://github.com/chrisvxd)! - Add source maps to output.
 
 - [#1454](https://github.com/clauderic/dnd-kit/pull/1454) [`a04d3f8`](https://github.com/clauderic/dnd-kit/commit/a04d3f88d380853b97585ab3b608561f7b02ce69) Thanks [@github-actions](https://github.com/apps/github-actions)! - Rework how collisions are detected and how the position of elements is observed using a new `PositionObserver`.
 
@@ -18,11 +78,13 @@
 
 - [#1454](https://github.com/clauderic/dnd-kit/pull/1454) [`a5933d8`](https://github.com/clauderic/dnd-kit/commit/a5933d8607e63ed08818ffab43e858863cb35d47) Thanks [@github-actions](https://github.com/apps/github-actions)! - Move responsibility from `CollisionObserver` to `CollisionNotifier` to check if the previous collisions are equal to the next collisions.
 
+- [#1454](https://github.com/clauderic/dnd-kit/pull/1454) [`a5a556a`](https://github.com/clauderic/dnd-kit/commit/a5a556abfeec1d78effb3e047f529555e444c020) Thanks [@github-actions](https://github.com/apps/github-actions)! - Fixed React lifecycle regressions related to StrictMode.
+
 - [#1448](https://github.com/clauderic/dnd-kit/pull/1448) [`96f28ef`](https://github.com/clauderic/dnd-kit/commit/96f28ef86adf95e77540732d39033c7f3fb0fd04) Thanks [@lfades](https://github.com/lfades)! - Allow entities to receive a new id during the lifecycle of the entity
 
-- Updated dependencies [[`b750c05`](https://github.com/clauderic/dnd-kit/commit/b750c05b4b14f5d9817dc07d974d40b74470e904), [`71dc39f`](https://github.com/clauderic/dnd-kit/commit/71dc39fb2ec21b9a680238a91be419c71ecabe86)]:
-  - @dnd-kit/state@0.0.6
+- Updated dependencies [[`081b7f2`](https://github.com/clauderic/dnd-kit/commit/081b7f2a11da2aad8ce3da7f0579974415d1fdf0), [`b750c05`](https://github.com/clauderic/dnd-kit/commit/b750c05b4b14f5d9817dc07d974d40b74470e904), [`71dc39f`](https://github.com/clauderic/dnd-kit/commit/71dc39fb2ec21b9a680238a91be419c71ecabe86)]:
   - @dnd-kit/geometry@0.0.6
+  - @dnd-kit/state@0.0.6
 
 ## 0.0.5
 

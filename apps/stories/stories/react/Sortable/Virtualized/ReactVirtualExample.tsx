@@ -98,7 +98,7 @@ const Sortable = forwardRef<Element, PropsWithChildren<SortableProps>>(
     const [element, setElement] = useState<Element | null>(null);
     const handleRef = useRef<HTMLButtonElement | null>(null);
 
-    const {isDragSource} = useSortable({
+    const {isDragging} = useSortable({
       id,
       index,
       element,
@@ -108,18 +108,10 @@ const Sortable = forwardRef<Element, PropsWithChildren<SortableProps>>(
 
     return (
       <Item
-        ref={(el) => {
-          if (typeof ref === 'function') {
-            ref(el);
-          } else if (ref) {
-            ref.current = el;
-          }
-
-          setElement(el);
-        }}
+        ref={setElement}
         actions={<Handle ref={handleRef} />}
         data-index={index}
-        shadow={isDragSource}
+        shadow={isDragging}
       >
         {id}
       </Item>

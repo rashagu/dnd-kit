@@ -7,7 +7,7 @@ import {
   isKeyboardEvent,
   scrollIntoViewIfNeeded,
 } from '@dnd-kit/dom/utilities';
-import type {Coordinates} from '@dnd-kit/geometry';
+import {Rectangle, type Coordinates} from '@dnd-kit/geometry';
 import {Scroller} from '@dnd-kit/dom';
 import type {DragDropManager, Droppable} from '@dnd-kit/dom';
 
@@ -45,13 +45,13 @@ export class SortableKeyboardPlugin extends Plugin<DragDropManager> {
       'dragmove',
       (event, manager: DragDropManager) => {
         queueMicrotask(() => {
-          if (this.disabled || event.defaultPrevented) {
+          if (this.disabled || event.defaultPrevented || !event.nativeEvent) {
             return;
           }
 
           const {dragOperation} = manager;
 
-          if (!isKeyboardEvent(dragOperation.activatorEvent)) {
+          if (!isKeyboardEvent(event.nativeEvent)) {
             return;
           }
 
@@ -129,13 +129,11 @@ export class SortableKeyboardPlugin extends Plugin<DragDropManager> {
           const {id} = firstCollision;
           const {index, group} = source.sortable;
 
-          actions.setDropTarget(id).then((defaultPrevented) => {
-            if (defaultPrevented) return;
-
+          actions.setDropTarget(id).then(() => {
             // Wait until optimistic sorting has a chance to update the DOM
-            const {source, target} = dragOperation;
+            const {source, target, shape} = dragOperation;
 
-            if (!source || !isSortable(source)) {
+            if (!source || !isSortable(source) || !shape) {
               return;
             }
 
@@ -150,17 +148,20 @@ export class SortableKeyboardPlugin extends Plugin<DragDropManager> {
             if (!element) return;
 
             scrollIntoViewIfNeeded(element);
-            const shape = new DOMRectangle(element);
+            const updatedShape = new DOMRectangle(element);
 
-            if (!shape) {
+            if (!updatedShape) {
               return;
             }
 
+            const delta = Rectangle.delta(
+              updatedShape,
+              Rectangle.from(shape.current.boundingRectangle),
+              source.alignment
+            );
+
             actions.move({
-              to: {
-                x: shape.center.x,
-                y: shape.center.y,
-              },
+              by: delta,
             });
 
             if (updated) {

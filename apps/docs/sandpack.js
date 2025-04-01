@@ -4,7 +4,7 @@ const importMap = {
     'react-dom': 'https://esm.sh/react-dom@18.2.0',
     'react-dom/': 'https://esm.sh/react-dom@18.2.0/',
     '@codesandbox/sandpack-react':
-      'https://esm.sh/@codesandbox/sandpack-react@2.8.0',
+      'https://esm.sh/@codesandbox/sandpack-react@2.8.0?deps=react@18.2.0&deps=react-dom@18.2.0',
   },
 };
 
@@ -65,6 +65,17 @@ class SandpackElement extends HTMLElement {
     let files = {};
     const height = parseInt(this.getAttribute("height"));
     const showTabs = Boolean(this.getAttribute("showTabs"));
+    const template = this.getAttribute("template") || "react";
+    const sharedDependencies = {
+      "@dnd-kit/helpers": "beta",
+    }
+    const dependencies = template === "react" ? {
+      ...sharedDependencies,
+      "@dnd-kit/react": "beta"
+    } : {
+      ...sharedDependencies,
+      "@dnd-kit/dom": "beta",
+    };
 
     try {
       files = JSON.parse(this.getAttribute("files"));
@@ -72,18 +83,15 @@ class SandpackElement extends HTMLElement {
 
     const sandpackComponent = React.createElement(Sandpack, {
       files,
-      template: "react",
-      theme: theme,
+      template,
+      theme,
       options: {
         showTabs,
         resizablePanels: false,
         editorHeight: height || undefined,
       },
       customSetup: {
-        dependencies: {
-          "@dnd-kit/react": "beta",
-          "@dnd-kit/helpers": "beta",
-        }
+        dependencies
       }
     }, null);
     root.render(sandpackComponent);
@@ -94,6 +102,6 @@ customElements.define("code-sandbox", SandpackElement);
 `;
 
 script.type = 'module';
-script.innerText = code;
+script.textContent = code;
 
 document.head.appendChild(script);

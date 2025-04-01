@@ -1,8 +1,129 @@
 # @dnd-kit/dom
 
+## 0.0.11
+
+### Patch Changes
+
+- [#1645](https://github.com/clauderic/dnd-kit/pull/1645) [`043c280`](https://github.com/clauderic/dnd-kit/commit/043c2807a7aa290ce9838a638422245b0bd89cf1) Thanks [@clauderic](https://github.com/clauderic)! - Add fallback logic to type-guards when instance checks fail to identify instances, for example to test if an element is an `Element` or `HTMLElement` or `SVGElement`, or if an `AnimationEffect` is a `KeyframeEffect`.
+
+- [#1644](https://github.com/clauderic/dnd-kit/pull/1644) [`ee40aac`](https://github.com/clauderic/dnd-kit/commit/ee40aacda6c015b1f357182c461650fde4c6704e) Thanks [@github-actions](https://github.com/apps/github-actions)! - **Feedback**: Use `revert` instead of `unset` to reset styles applied by the `popover` attribute.
+
+- [#1643](https://github.com/clauderic/dnd-kit/pull/1643) [`635d94f`](https://github.com/clauderic/dnd-kit/commit/635d94f6e719bcdf50e0024b6d1f09b9bb46c8a5) Thanks [@clauderic](https://github.com/clauderic)! - Fix a bug in the `Scroller` plugin that would always use `document.getElementFromPoint` instead of the document of the source element.
+
+- [#1644](https://github.com/clauderic/dnd-kit/pull/1644) [`3080d2c`](https://github.com/clauderic/dnd-kit/commit/3080d2c8c122beabc41fb8d79beceb2188a01947) Thanks [@github-actions](https://github.com/apps/github-actions)! - **Feedback**: Set `popover` attribute value to `manual`.
+
+- Updated dependencies []:
+  - @dnd-kit/abstract@0.0.11
+  - @dnd-kit/collision@0.0.11
+  - @dnd-kit/geometry@0.0.11
+  - @dnd-kit/state@0.0.11
+
+## 0.0.10
+
+### Patch Changes
+
+- [#1606](https://github.com/clauderic/dnd-kit/pull/1606) [`2c53eb9`](https://github.com/clauderic/dnd-kit/commit/2c53eb95a980d143b179af5b7f0a071cdedd9089) Thanks [@github-actions](https://github.com/apps/github-actions)! - Use the `draggable.isDragging` property instead of `draggable.isDragSource` to set `aria-grabbing` and `aria-pressed` attributes.
+
+- [#1606](https://github.com/clauderic/dnd-kit/pull/1606) [`3155941`](https://github.com/clauderic/dnd-kit/commit/3155941608dbf16ed867e931381e7bb2c65a126d) Thanks [@github-actions](https://github.com/apps/github-actions)! - Fixed a bug with the `Feedback` plugin where the placeholder element was visible for a brief moment during the drop animation instead of being hidden until the animation completes.
+
+- [#1606](https://github.com/clauderic/dnd-kit/pull/1606) [`082836e`](https://github.com/clauderic/dnd-kit/commit/082836e517252262b7984b142093ba6c81c43ba8) Thanks [@github-actions](https://github.com/apps/github-actions)! - Fixed a bug with the `PointerSensor` where it was possible for it to activate while a drag operation was already in progress.
+
+- Updated dependencies []:
+  - @dnd-kit/abstract@0.0.10
+  - @dnd-kit/collision@0.0.10
+  - @dnd-kit/geometry@0.0.10
+  - @dnd-kit/state@0.0.10
+
+## 0.0.9
+
+### Patch Changes
+
+- [#1600](https://github.com/clauderic/dnd-kit/pull/1600) [`e36d954`](https://github.com/clauderic/dnd-kit/commit/e36d95420148659ba78bdbefd3a0a24ec5d02b8f) Thanks [@github-actions](https://github.com/apps/github-actions)! - Added `nativeEvent` property to `dragstart`, `dragmove` and `dragend` events. This can be used to distinguish user triggered events from sensor triggered events, as user or plugin triggered events will typically not have an associated `event` attached.
+
+- [#1600](https://github.com/clauderic/dnd-kit/pull/1600) [`bb4abcd`](https://github.com/clauderic/dnd-kit/commit/bb4abcd1957f2562072059ad8b5e701893a0fede) Thanks [@github-actions](https://github.com/apps/github-actions)! - Make sure the Feedback element is promoted to the top layer when synchronizing the placeholder and element position in the DOM.
+
+- [#1600](https://github.com/clauderic/dnd-kit/pull/1600) [`d86bbc7`](https://github.com/clauderic/dnd-kit/commit/d86bbc7e73ba16296c48f9af29f1893624157a0f) Thanks [@github-actions](https://github.com/apps/github-actions)! - Added `alignment` configuration option to draggable instances to let consumers decide how to align the draggable during the drop animation and while keyboard sorting. Defaults to the center of the target shape.
+
+- [#1600](https://github.com/clauderic/dnd-kit/pull/1600) [`f433fb2`](https://github.com/clauderic/dnd-kit/commit/f433fb21aa76c5b4badeec6423e3c930006c8d70) Thanks [@github-actions](https://github.com/apps/github-actions)! - Fixed a regression in the `Feedback` plugin where the initial `translate` style applied to the element being dragged was not properly accounted for anymore.
+
+- [#1600](https://github.com/clauderic/dnd-kit/pull/1600) [`7dc0103`](https://github.com/clauderic/dnd-kit/commit/7dc0103c5e5281e9ee61bcd9c3ab493fc9307073) Thanks [@github-actions](https://github.com/apps/github-actions)! - Removed some `!important` rules and updated the specificity of the `Feedback` plugin styles to `0-2-0` to make it easier for consumers to override certain styles, such as `width` and `height`.
+
+- [`cff3c3c`](https://github.com/clauderic/dnd-kit/commit/cff3c3cbbe96a6f401cb3900a8cd5f727a974c2d) Thanks [@clauderic](https://github.com/clauderic)! - Fixed a bug with the drop animation by using `intrinsicWidth` and `intrinsicHeight` to determine if the width and height of the source and target differ or not rather than the `width` and `height` properties which may be transformed.
+
+- [#1600](https://github.com/clauderic/dnd-kit/pull/1600) [`f87d633`](https://github.com/clauderic/dnd-kit/commit/f87d63347529f5c9600bcffb14ad2d15ff6eb107) Thanks [@github-actions](https://github.com/apps/github-actions)! - Fixed a regression introduced in `0.0.7` with optimistic updates not being persisted on drag end.
+
+- [`860759b`](https://github.com/clauderic/dnd-kit/commit/860759b15167616c465eef1738fd02c76aa53cb3) Thanks [@clauderic](https://github.com/clauderic)! - Added `intrinsicWidth` and `intrinsicHeight` properties on `DOMRectangle`, which return the intrinsic width and height of an element, before any transforms are applied.
+
+- [#1600](https://github.com/clauderic/dnd-kit/pull/1600) [`54e416f`](https://github.com/clauderic/dnd-kit/commit/54e416f6f0aaa19c11827f80b2df796bfe237ba0) Thanks [@github-actions](https://github.com/apps/github-actions)! - Only handle `dragmove` events that have an associated `KeyboardEvent` as their `event.nativeEvent` property.
+
+- [#1600](https://github.com/clauderic/dnd-kit/pull/1600) [`c51778d`](https://github.com/clauderic/dnd-kit/commit/c51778dde5bcd614b1891c5f7659130769ddc9f8) Thanks [@github-actions](https://github.com/apps/github-actions)! - **PointerSensor**: Use `capture` listener to prevent `dragstart` events.
+
+- [#1600](https://github.com/clauderic/dnd-kit/pull/1600) [`86ed6c8`](https://github.com/clauderic/dnd-kit/commit/86ed6c8e203bb167d451c36605c2a0e0d33f0157) Thanks [@github-actions](https://github.com/apps/github-actions)! - Fixed a regression in the `PointerSensor` where the same drag operation could fire a dragend event twice due to a race condition between `pointerup` and `lostpointercapture`.
+
+- [#1600](https://github.com/clauderic/dnd-kit/pull/1600) [`afedea9`](https://github.com/clauderic/dnd-kit/commit/afedea930bbfd1ea546c2bcbe5f42a3ea8b913fe) Thanks [@github-actions](https://github.com/apps/github-actions)! - **PreventSelection**: Remove text selection when a drag operation is initialized.
+
+- Updated dependencies [[`e36d954`](https://github.com/clauderic/dnd-kit/commit/e36d95420148659ba78bdbefd3a0a24ec5d02b8f), [`60e7297`](https://github.com/clauderic/dnd-kit/commit/60e72979850bfe4cbb8e2b2e2b8e84bce9edc9f5), [`3463da1`](https://github.com/clauderic/dnd-kit/commit/3463da1cac9f26e4b2ab3278ae52206bb99645e4), [`b7f1cf8`](https://github.com/clauderic/dnd-kit/commit/b7f1cf8f9e15a285c45f896e092f61001335cdff), [`3e629cc`](https://github.com/clauderic/dnd-kit/commit/3e629cc81dbaf9d112c4f1d2c10c75eb6779cf4e), [`8ae7014`](https://github.com/clauderic/dnd-kit/commit/8ae70143bc404bff7678fa8e8390a640c16f2579), [`ce31da7`](https://github.com/clauderic/dnd-kit/commit/ce31da736ec5d4f48bab45430be7b57223d60ee7)]:
+  - @dnd-kit/abstract@0.0.9
+  - @dnd-kit/geometry@0.0.9
+  - @dnd-kit/collision@0.0.9
+  - @dnd-kit/state@0.0.9
+
+## 0.0.8
+
+### Patch Changes
+
+- [#1598](https://github.com/clauderic/dnd-kit/pull/1598) [`0de7456`](https://github.com/clauderic/dnd-kit/commit/0de7456ade17b9a0aa127b8adf13495e7fdf1558) Thanks [@github-actions](https://github.com/apps/github-actions)! - Moved styles that override the default user agent styles for `[popover]` into a CSS layer to avoid overriding other layered styles on the page, such as Tailwind 4.
+
+- [#1598](https://github.com/clauderic/dnd-kit/pull/1598) [`c9716cf`](https://github.com/clauderic/dnd-kit/commit/c9716cf7b8b846faab451bd2f60c53c77d2d24ba) Thanks [@github-actions](https://github.com/apps/github-actions)! - Added `isDragging` and `isDropping` properties to `draggable` and `sortable` instances.
+
+- [#1598](https://github.com/clauderic/dnd-kit/pull/1598) [`74eedef`](https://github.com/clauderic/dnd-kit/commit/74eedef3441dc07d8fa8dd9337a6b2d748b0cdde) Thanks [@github-actions](https://github.com/apps/github-actions)! - **PointerSensor**
+
+  - End drag operation if `lostpointercapture` event is fired and the drag operation has not ended already. This can happen if the `pointerup` event is fired in a different frame.
+  - Prevent `contextmenu` from opening during a drag operation.
+
+- [#1598](https://github.com/clauderic/dnd-kit/pull/1598) [`42e7256`](https://github.com/clauderic/dnd-kit/commit/42e7256e7fb9c11ed6295b77e30c41ebe66a15d1) Thanks [@github-actions](https://github.com/apps/github-actions)! - - Fixed an invalid CSS selector in the `PreventSelection` plugin
+  - Removed logic to prevent user selection in `Feedback` plugin (defer to `PreventSelection` plugin to handle this)
+- Updated dependencies [[`c9716cf`](https://github.com/clauderic/dnd-kit/commit/c9716cf7b8b846faab451bd2f60c53c77d2d24ba), [`3ea0d31`](https://github.com/clauderic/dnd-kit/commit/3ea0d314649b186bfe0524d50145625da13a8787), [`3cf4db1`](https://github.com/clauderic/dnd-kit/commit/3cf4db126813ebe6ddfc025df5e42e9bfcfa9c38)]:
+  - @dnd-kit/abstract@0.0.8
+  - @dnd-kit/collision@0.0.8
+  - @dnd-kit/geometry@0.0.8
+  - @dnd-kit/state@0.0.8
+
+## 0.0.7
+
+### Patch Changes
+
+- [#1592](https://github.com/clauderic/dnd-kit/pull/1592) [`550a868`](https://github.com/clauderic/dnd-kit/commit/550a86870d7441a38a06b3e7c35aa0d7d89e32d1) Thanks [@github-actions](https://github.com/apps/github-actions)! - Added `aria-grabbed` to the list of attributes added by the Accessibility plugin.
+
+  Setting aria-grabbed to true indicates that the element has been selected for dragging. Setting aria-grabbed to false indicates that the element can be grabbed for a drag-and-drop operation, but is not currently grabbed.
+
+  While the `aria-grabbed` attribute has been deprecated in ARIA 1.1, in practice, since the accessibility API features for accessible drag and drop still don’t exist and likely won’t for several years, these attributes will continue to be supported by browsers and reflected in the accessibility tree for some years to come until a new API is introduced to replace it.
+
+- [#1592](https://github.com/clauderic/dnd-kit/pull/1592) [`75e23b6`](https://github.com/clauderic/dnd-kit/commit/75e23b6fdfdeadeae1b9a4b2b9be7682f48c10e4) Thanks [@github-actions](https://github.com/apps/github-actions)! - Added `aria-grabbed` and `aria-pressed` to the list of attributes that are not synchronized between the draggable element and its placeholder.
+
+- [#1592](https://github.com/clauderic/dnd-kit/pull/1592) [`cef9b46`](https://github.com/clauderic/dnd-kit/commit/cef9b46c5ed017e6a601b1d0ee9d0f05b7bbd19f) Thanks [@github-actions](https://github.com/apps/github-actions)! - Fix global modifiers set on `DragDropManager` / `<DragDropProvider>` being destroyed after the first drag operation.
+
+- [#1592](https://github.com/clauderic/dnd-kit/pull/1592) [`730064b`](https://github.com/clauderic/dnd-kit/commit/730064b8b06bd25ebde335305a303fdf4c9a9c7f) Thanks [@github-actions](https://github.com/apps/github-actions)! - Fix incorrect type for modifiers.
+
+- [#1592](https://github.com/clauderic/dnd-kit/pull/1592) [`808f184`](https://github.com/clauderic/dnd-kit/commit/808f184439125cf7e66054b3e85ac087aa04f13b) Thanks [@github-actions](https://github.com/apps/github-actions)! - Fix reconciliation of optimistic updates in `move` helper.
+
+- [#1592](https://github.com/clauderic/dnd-kit/pull/1592) [`c4e7a7c`](https://github.com/clauderic/dnd-kit/commit/c4e7a7cd98ccaec99fa1037cb1020d3d05cea090) Thanks [@github-actions](https://github.com/apps/github-actions)! - Fixed positioning of `Feedback` plugin when `direction` is set to `rtl`.
+
+- [#1592](https://github.com/clauderic/dnd-kit/pull/1592) [`280b7e2`](https://github.com/clauderic/dnd-kit/commit/280b7e229d5e6a5f067a66038e50c4fbb3b29dc0) Thanks [@github-actions](https://github.com/apps/github-actions)! - Fixed stale modifiers when using `useSortable`.
+
+- [#1592](https://github.com/clauderic/dnd-kit/pull/1592) [`84b75fc`](https://github.com/clauderic/dnd-kit/commit/84b75fc3a7b7a555481dbeba533bc28128783e72) Thanks [@github-actions](https://github.com/apps/github-actions)! - Fixed `element` not being set on initialization of `Sortable` instance even if an `element` was provided as input.
+
+- Updated dependencies [[`c1dadef`](https://github.com/clauderic/dnd-kit/commit/c1dadef118f8f5f096d36dac314bfe317ea950ce), [`cef9b46`](https://github.com/clauderic/dnd-kit/commit/cef9b46c5ed017e6a601b1d0ee9d0f05b7bbd19f)]:
+  - @dnd-kit/abstract@0.0.7
+  - @dnd-kit/collision@0.0.7
+  - @dnd-kit/geometry@0.0.7
+  - @dnd-kit/state@0.0.7
+
 ## 0.0.6
 
 ### Patch Changes
+
+- [#1567](https://github.com/clauderic/dnd-kit/pull/1567) [`081b7f2`](https://github.com/clauderic/dnd-kit/commit/081b7f2a11da2aad8ce3da7f0579974415d1fdf0) Thanks [@chrisvxd](https://github.com/chrisvxd)! - Add source maps to output.
 
 - [#1499](https://github.com/clauderic/dnd-kit/pull/1499) [`d436037`](https://github.com/clauderic/dnd-kit/commit/d43603740a4d056e9fc7501e9b2117c173b1df4d) Thanks [@chrisvxd](https://github.com/chrisvxd)! - Fix a bug that prevented all unique droppables that share an element from each receiving the cloned proxy.
 
@@ -24,6 +145,8 @@
 
 - [#1454](https://github.com/clauderic/dnd-kit/pull/1454) [`3d0b00a`](https://github.com/clauderic/dnd-kit/commit/3d0b00a663b9dc38ccd7a46544c94a342694b626) Thanks [@github-actions](https://github.com/apps/github-actions)! - Fix an issue where we would update the shape of sortable items while the drag operation status was idle.
 
+- [#1454](https://github.com/clauderic/dnd-kit/pull/1454) [`e6a8e01`](https://github.com/clauderic/dnd-kit/commit/e6a8e018d2d7ad9a11e5b05f07774c7e3ac08da3) Thanks [@github-actions](https://github.com/apps/github-actions)! - Fix a bug with `event.preventDefault()` and `event.stopPropagation()` being called on pointer up even if there was no drag operation in progress, which would prevent interactive elements such as buttons from being clicked.
+
 - [#1454](https://github.com/clauderic/dnd-kit/pull/1454) [`7ef9864`](https://github.com/clauderic/dnd-kit/commit/7ef98642207c8beac1ca7e2704ce8805767dc89d) Thanks [@github-actions](https://github.com/apps/github-actions)! - Fixed bugs with the `OptimisticSortingPlugin` when sorting across different groups.
 
 - [#1454](https://github.com/clauderic/dnd-kit/pull/1454) [`51be6df`](https://github.com/clauderic/dnd-kit/commit/51be6dfe1b8cb42f74df34c76098e197b9208f81) Thanks [@github-actions](https://github.com/apps/github-actions)! - Fix `element` not being set when provided on initialization of `Droppable`
@@ -38,6 +161,10 @@
 
 - [#1454](https://github.com/clauderic/dnd-kit/pull/1454) [`bfc8ab2`](https://github.com/clauderic/dnd-kit/commit/bfc8ab21cfd9c16a8d90ab250386e6d52d0a40a3) Thanks [@github-actions](https://github.com/apps/github-actions)! - **PointerSensor**: Defer invoking `setPointerCapture` until activation constraints are met as it can interfere with `click` and other event handlers. Also deferred adding `touchmove`, `click` and `keydown` event listeners until the activation constraints are met.
 
+- [#1454](https://github.com/clauderic/dnd-kit/pull/1454) [`a5a556a`](https://github.com/clauderic/dnd-kit/commit/a5a556abfeec1d78effb3e047f529555e444c020) Thanks [@github-actions](https://github.com/apps/github-actions)! - Fixed React lifecycle regressions related to StrictMode.
+
+- [#1454](https://github.com/clauderic/dnd-kit/pull/1454) [`b5edff1`](https://github.com/clauderic/dnd-kit/commit/b5edff19279c07bbcd54ebc4579817b8a36cfff5) Thanks [@github-actions](https://github.com/apps/github-actions)! - Remove `event.stopImmediatePropagation()` in `PointerSensor` and replace with a different strategy to prevent other instances of PointerSensor from tracking an event that was already captured by another sensor.
+
 - [#1454](https://github.com/clauderic/dnd-kit/pull/1454) [`3fb972e`](https://github.com/clauderic/dnd-kit/commit/3fb972e228aabfe07d662b77c642405f909fddb0) Thanks [@github-actions](https://github.com/apps/github-actions)! - **AccessibilityPlugin**: Force `tabindex="0"` in Safari even for natively focusable elements as they are not always focusable by default.
 
 - [#1454](https://github.com/clauderic/dnd-kit/pull/1454) [`5b36f8f`](https://github.com/clauderic/dnd-kit/commit/5b36f8fb36f5a4468793b469425b5c0461426f56) Thanks [@github-actions](https://github.com/apps/github-actions)! - Allow sortable animations when changing to a different group even when the index remains the same.
@@ -46,11 +173,11 @@
 
 - [#1517](https://github.com/clauderic/dnd-kit/pull/1517) [`c42a11b`](https://github.com/clauderic/dnd-kit/commit/c42a11b60e950d50f8c243bdf8df4f32e1d47d23) Thanks [@clauderic](https://github.com/clauderic)! - Support dragging across same-origin iframes.
 
-- Updated dependencies [[`984b5ab`](https://github.com/clauderic/dnd-kit/commit/984b5ab7bec3145dedb9c9b3b560ffbf7e54b919), [`69bfad7`](https://github.com/clauderic/dnd-kit/commit/69bfad7d795947987a4281f1a61f81b6a7839fe8), [`a04d3f8`](https://github.com/clauderic/dnd-kit/commit/a04d3f88d380853b97585ab3b608561f7b02ce69), [`a8542de`](https://github.com/clauderic/dnd-kit/commit/a8542de56d39c3cd3b6ef981172a0782454295b2), [`f7458d9`](https://github.com/clauderic/dnd-kit/commit/f7458d9dc32824dbea3a6d5dfb29236f19a2c073), [`b750c05`](https://github.com/clauderic/dnd-kit/commit/b750c05b4b14f5d9817dc07d974d40b74470e904), [`e70b29a`](https://github.com/clauderic/dnd-kit/commit/e70b29ae64837e424f7279c95112fb6e420c4dcc), [`4d1a030`](https://github.com/clauderic/dnd-kit/commit/4d1a0306c920ae064eb5b30c4c02961f50460c84), [`a6366f9`](https://github.com/clauderic/dnd-kit/commit/a6366f9e42836b4c5732141bf314489ede9f60cb), [`a5933d8`](https://github.com/clauderic/dnd-kit/commit/a5933d8607e63ed08818ffab43e858863cb35d47), [`96f28ef`](https://github.com/clauderic/dnd-kit/commit/96f28ef86adf95e77540732d39033c7f3fb0fd04), [`71dc39f`](https://github.com/clauderic/dnd-kit/commit/71dc39fb2ec21b9a680238a91be419c71ecabe86)]:
+- Updated dependencies [[`984b5ab`](https://github.com/clauderic/dnd-kit/commit/984b5ab7bec3145dedb9c9b3b560ffbf7e54b919), [`081b7f2`](https://github.com/clauderic/dnd-kit/commit/081b7f2a11da2aad8ce3da7f0579974415d1fdf0), [`69bfad7`](https://github.com/clauderic/dnd-kit/commit/69bfad7d795947987a4281f1a61f81b6a7839fe8), [`a04d3f8`](https://github.com/clauderic/dnd-kit/commit/a04d3f88d380853b97585ab3b608561f7b02ce69), [`a8542de`](https://github.com/clauderic/dnd-kit/commit/a8542de56d39c3cd3b6ef981172a0782454295b2), [`f7458d9`](https://github.com/clauderic/dnd-kit/commit/f7458d9dc32824dbea3a6d5dfb29236f19a2c073), [`b750c05`](https://github.com/clauderic/dnd-kit/commit/b750c05b4b14f5d9817dc07d974d40b74470e904), [`e70b29a`](https://github.com/clauderic/dnd-kit/commit/e70b29ae64837e424f7279c95112fb6e420c4dcc), [`4d1a030`](https://github.com/clauderic/dnd-kit/commit/4d1a0306c920ae064eb5b30c4c02961f50460c84), [`a6366f9`](https://github.com/clauderic/dnd-kit/commit/a6366f9e42836b4c5732141bf314489ede9f60cb), [`a5933d8`](https://github.com/clauderic/dnd-kit/commit/a5933d8607e63ed08818ffab43e858863cb35d47), [`a5a556a`](https://github.com/clauderic/dnd-kit/commit/a5a556abfeec1d78effb3e047f529555e444c020), [`96f28ef`](https://github.com/clauderic/dnd-kit/commit/96f28ef86adf95e77540732d39033c7f3fb0fd04), [`71dc39f`](https://github.com/clauderic/dnd-kit/commit/71dc39fb2ec21b9a680238a91be419c71ecabe86)]:
   - @dnd-kit/abstract@0.0.6
   - @dnd-kit/collision@0.0.6
-  - @dnd-kit/state@0.0.6
   - @dnd-kit/geometry@0.0.6
+  - @dnd-kit/state@0.0.6
 
 ## 0.0.5
 

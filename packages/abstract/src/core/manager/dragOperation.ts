@@ -1,6 +1,13 @@
 import {Position, type Shape} from '@dnd-kit/geometry';
 import type {Coordinates} from '@dnd-kit/geometry';
-import {batch, computed, effect, signal} from '@dnd-kit/state';
+import {
+  batch,
+  computed,
+  deepEqual,
+  effect,
+  signal,
+  untracked,
+} from '@dnd-kit/state';
 
 import type {
   Draggable,
@@ -99,15 +106,15 @@ export function DragOperationManager<
   });
   const target = computed<U | null>(() => {
     const identifier = targetIdentifier.value;
-    return identifier != null ? droppables.get(identifier) ?? null : null;
+    return identifier != null ? (droppables.get(identifier) ?? null) : null;
   });
 
   const modifiers = signal<Modifier[]>([]);
 
-  effect(() => {
+  const dispose = effect(() => {
     const currentModifiers = modifiers.peek();
 
-    if (currentModifiers !== manager.modifiers) {
+    if (!deepEqual(currentModifiers, manager.modifiers)) {
       currentModifiers.forEach((modifier) => modifier.destroy());
     }
 
@@ -122,7 +129,7 @@ export function DragOperationManager<
     const {x, y} = position.delta;
 
     let transform = {x, y};
-    const initialShape = shape.initial.peek();
+    const initialShape = shape.initial.value;
     const currentShape = shape.current.peek();
     const operation: Omit<DragOperation<T, U>, 'transform'> = {
       activatorEvent: activatorEvent.peek(),
@@ -225,150 +232,206 @@ export function DragOperationManager<
     });
   };
 
-  return {
-    operation,
-    actions: {
-      setDragSource(identifier: UniqueIdentifier) {
-        sourceIdentifier.value = identifier;
-      },
-      setDropTarget(
-        identifier: UniqueIdentifier | null | undefined
-      ): Promise<boolean> {
-        const id = identifier ?? null;
+  const actions = {
+    setDragSource(identifier: UniqueIdentifier) {
+      sourceIdentifier.value = identifier;
+    },
+    setDropTarget(
+      identifier: UniqueIdentifier | null | undefined
+    ): Promise<boolean> {
+      const id = identifier ?? null;
 
-        if (targetIdentifier.peek() === id) {
-          return Promise.resolve(false);
-        }
+      if (targetIdentifier.peek() === id) {
+        return Promise.resolve(false);
+      }
 
-        targetIdentifier.value = id;
+      targetIdentifier.value = id;
 
-        const event = defaultPreventable({
-          operation: snapshot(operation),
-        });
+      const event = defaultPreventable({
+        operation: snapshot(operation),
+      });
 
-        if (status.peek() === Status.Dragging) {
-          monitor.dispatch('dragover', event);
-        }
+      if (status.peek() === Status.Dragging) {
+        monitor.dispatch('dragover', event);
+      }
 
-        return manager.renderer.rendering.then(() => event.defaultPrevented);
-      },
-      start({event, coordinates}: {event: Event; coordinates: Coordinates}) {
-        const sourceInstance = source.peek();
+      return manager.renderer.rendering.then(() => event.defaultPrevented);
+    },
+    start({
+      event: nativeEvent,
+      coordinates,
+    }: {
+      event?: Event;
+      coordinates: Coordinates;
+    }) {
+      const sourceInstance = source.peek();
 
-        if (!sourceInstance) {
-          throw new Error(
-            'Cannot start a drag operation without a drag source'
-          );
-        }
+      if (!sourceInstance) {
+        throw new Error('Cannot start a drag operation without a drag source');
+      }
 
-        batch(() => {
-          shape.initial.value = null;
-          shape.current.value = null;
-          dragended.value = false;
-          canceled.value = false;
-          activatorEvent.value = event;
-          position.reset(coordinates);
-        });
+      batch(() => {
+        shape.initial.value = null;
+        shape.current.value = null;
+        dragended.value = false;
+        canceled.value = false;
+        activatorEvent.value = nativeEvent ?? null;
+        position.reset(coordinates);
+      });
 
-        const beforeStartEvent = defaultPreventable({
-          operation: snapshot(operation),
-        });
+      const beforeStartEvent = defaultPreventable({
+        operation: snapshot(operation),
+      });
 
-        monitor.dispatch('beforedragstart', beforeStartEvent);
+      monitor.dispatch('beforedragstart', beforeStartEvent);
 
-        manager.renderer.rendering.then(() => {
-          if (beforeStartEvent.defaultPrevented) {
-            reset();
-            return;
-          }
-
-          status.value = Status.Initializing;
-
-          requestAnimationFrame(() => {
-            status.value = Status.Dragging;
-
-            monitor.dispatch('dragstart', {
-              operation: snapshot(operation),
-              cancelable: false,
-            });
-          });
-        });
-      },
-      move({
-        by,
-        to,
-        cancelable = true,
-      }:
-        | {by: Coordinates; to?: undefined; cancelable?: boolean}
-        | {by?: undefined; to: Coordinates; cancelable?: boolean}) {
-        if (!dragging.peek()) {
+      manager.renderer.rendering.then(() => {
+        if (beforeStartEvent.defaultPrevented) {
+          reset();
           return;
         }
 
-        const event = defaultPreventable(
-          {
+        status.value = Status.Initializing;
+
+        requestAnimationFrame(() => {
+          status.value = Status.Dragging;
+
+          monitor.dispatch('dragstart', {
+            nativeEvent,
             operation: snapshot(operation),
-            by,
-            to,
-          },
-          cancelable
-        );
-
-        monitor.dispatch('dragmove', event);
-
-        queueMicrotask(() => {
-          if (event.defaultPrevented) {
-            return;
-          }
-
-          const coordinates = to ?? {
-            x: position.current.x + by.x,
-            y: position.current.y + by.y,
-          };
-
-          position.update(coordinates);
-        });
-      },
-      stop({canceled: eventCanceled = false}: {canceled?: boolean} = {}) {
-        let promise: Promise<void> | undefined;
-        const suspend = () => {
-          const output = {
-            resume: () => {},
-            abort: () => {},
-          };
-
-          promise = new Promise<void>((resolve, reject) => {
-            output.resume = resolve;
-            output.abort = reject;
+            cancelable: false,
           });
-
-          return output;
-        };
-        const end = () => {
-          /* Wait for the renderer to finish rendering before finalizing the drag operation */
-          manager.renderer.rendering.then(() => {
-            status.value = Status.Dropped;
-            manager.renderer.rendering.then(reset);
-          });
-        };
-
-        batch(() => {
-          dragended.value = true;
-          canceled.value = eventCanceled;
         });
-
-        monitor.dispatch('dragend', {
-          operation: snapshot(operation),
-          canceled: eventCanceled,
-          suspend,
-        });
-
-        if (promise) {
-          promise.then(end).catch(reset);
-        } else {
-          end();
+      });
+    },
+    move({
+      by,
+      to,
+      event: nativeEvent,
+      cancelable = true,
+      propagate = true,
+    }:
+      | {
+          by: Coordinates;
+          to?: undefined;
+          event?: Event;
+          cancelable?: boolean;
+          propagate?: boolean;
         }
-      },
+      | {
+          by?: undefined;
+          to: Coordinates;
+          event?: Event;
+          cancelable?: boolean;
+          propagate?: boolean;
+        }) {
+      if (!dragging.peek()) {
+        return;
+      }
+
+      const event = defaultPreventable(
+        {
+          nativeEvent,
+          operation: snapshot(operation),
+          by,
+          to,
+        },
+        cancelable
+      );
+
+      if (propagate) {
+        monitor.dispatch('dragmove', event);
+      }
+
+      queueMicrotask(() => {
+        if (event.defaultPrevented) {
+          return;
+        }
+
+        const coordinates = to ?? {
+          x: position.current.x + by.x,
+          y: position.current.y + by.y,
+        };
+
+        position.update(coordinates);
+      });
+    },
+    stop({
+      canceled: eventCanceled = false,
+      event: nativeEvent,
+    }: {event?: Event; canceled?: boolean} = {}) {
+      let promise: Promise<void> | undefined;
+      const suspend = () => {
+        const output = {
+          resume: () => {},
+          abort: () => {},
+        };
+
+        promise = new Promise<void>((resolve, reject) => {
+          output.resume = resolve;
+          output.abort = reject;
+        });
+
+        return output;
+      };
+      const end = () => {
+        /* Wait for the renderer to finish rendering before finalizing the drag operation */
+        manager.renderer.rendering.then(() => {
+          status.value = Status.Dropped;
+
+          const dropping = untracked(() => source.value?.status === 'dropping');
+
+          if (dropping) {
+            const currentSource = source.value;
+
+            // Wait until the source has finished dropping before resetting the operation
+            const dispose = effect(() => {
+              if (currentSource?.status === 'idle') {
+                dispose();
+
+                // Only reset the drag operation if the source is still the same source that was active when the drag operation
+                // was ended, as it's possible for a new drag operation to start while the previous source is still dropping
+                if (source.value !== currentSource) return;
+
+                reset();
+              }
+            });
+          } else {
+            manager.renderer.rendering.then(reset);
+          }
+        });
+      };
+
+      batch(() => {
+        dragended.value = true;
+        canceled.value = eventCanceled;
+      });
+
+      monitor.dispatch('dragend', {
+        nativeEvent,
+        operation: snapshot(operation),
+        canceled: eventCanceled,
+        suspend,
+      });
+
+      if (promise) {
+        promise.then(end).catch(reset);
+      } else {
+        end();
+      }
+    },
+  };
+
+  return {
+    operation,
+    actions,
+    cleanup() {
+      if (status.peek() !== Status.Idle) {
+        actions.stop({canceled: true});
+      }
+
+      modifiers.value.forEach((modifier) => modifier.destroy());
+      dispose();
     },
   };
 }

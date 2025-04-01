@@ -61,7 +61,7 @@ function mutate<
 ): T {
   const {source, target, canceled} = event.operation;
 
-  if (!source || !target || canceled || source.id === target.id) {
+  if (!source || !target || canceled) {
     if ('preventDefault' in event) event.preventDefault();
     return items;
   }
@@ -154,7 +154,8 @@ function mutate<
     };
   }
 
-  const isBelowTarget = target.shape && position.y > target.shape.center.y;
+  const isBelowTarget =
+    target.shape && Math.round(position.y) > Math.round(target.shape.center.y);
   const modifier = isBelowTarget ? 1 : 0;
   const sourceItem = items[sourceParent][sourceIndex];
 

@@ -102,10 +102,13 @@ export class PointerSensor extends Sensor<
       !event.isPrimary ||
       event.button !== 0 ||
       !isElement(event.target) ||
-      source.disabled
+      source.disabled ||
+      isCapturedBySensor(event) ||
+      !this.manager.dragOperation.status.idle
     ) {
       return;
     }
+
     const {target} = event;
     const isNativeDraggable =
       isHTMLElement(target) &&
@@ -125,7 +128,7 @@ export class PointerSensor extends Sensor<
         ? activationConstraints(event, source)
         : activationConstraints;
 
-    event.stopImmediatePropagation();
+    (event as any).sensor = this;
 
     if (!constraints?.delay && !constraints?.distance) {
       this.handleStart(source, event);
@@ -164,11 +167,14 @@ export class PointerSensor extends Sensor<
         // Cancel activation if there is a competing Drag and Drop interaction
         type: 'dragstart',
         listener: isNativeDraggable ? this.handleCancel : preventDefault,
+        options: {
+          capture: true,
+        },
       },
     ]);
 
     const cleanup = () => {
-      setTimeout(unbindListeners);
+      unbindListeners();
       this.#clearTimeout?.();
       this.initialCoordinates = undefined;
     };
@@ -195,7 +201,7 @@ export class PointerSensor extends Sensor<
       event.preventDefault();
       event.stopPropagation();
 
-      this.manager.actions.move({to: coordinates});
+      this.manager.actions.move({event, to: coordinates});
       return;
     }
 
@@ -219,7 +225,7 @@ export class PointerSensor extends Sensor<
         distance.tolerance != null &&
         exceedsDistance(delta, distance.tolerance)
       ) {
-        return this.handleCancel();
+        return this.handleCancel(event);
       }
       if (exceedsDistance(delta, distance.value)) {
         return this.handleStart(source, event);
@@ -228,22 +234,22 @@ export class PointerSensor extends Sensor<
 
     if (delay) {
       if (exceedsDistance(delta, delay.tolerance)) {
-        return this.handleCancel();
+        return this.handleCancel(event);
       }
     }
   }
 
   private handlePointerUp(event: PointerEvent) {
-    // Prevent the default behaviour of the event
-    event.preventDefault();
-    event.stopPropagation();
-
     // End the drag and drop operation
     const {status} = this.manager.dragOperation;
 
-    if (!status.idle) {
+    if (status.dragging) {
+      // Prevent the default behaviour of the event
+      event.preventDefault();
+      event.stopPropagation();
+
       const canceled = !status.initialized;
-      this.manager.actions.stop({canceled});
+      this.manager.actions.stop({event, canceled});
     }
 
     // Remove the pointer move and up event listeners
@@ -254,7 +260,7 @@ export class PointerSensor extends Sensor<
   protected handleKeyDown(event: KeyboardEvent) {
     if (event.key === 'Escape') {
       event.preventDefault();
-      this.handleCancel();
+      this.handleCancel(event);
     }
   }
 
@@ -279,6 +285,10 @@ export class PointerSensor extends Sensor<
     });
 
     const ownerDocument = getDocument(event.target);
+    const pointerCaptureTarget = ownerDocument.body;
+
+    pointerCaptureTarget.setPointerCapture(event.pointerId);
+
     const unbind = this.listeners.bind(ownerDocument, [
       {
         // Prevent scrolling on touch devices
@@ -294,21 +304,31 @@ export class PointerSensor extends Sensor<
         listener: preventDefault,
       },
       {
+        type: 'contextmenu',
+        listener: preventDefault,
+      },
+      {
         type: 'keydown',
         listener: this.handleKeyDown,
       },
-    ]);
+      {
+        type: 'lostpointercapture',
+        listener: (event: PointerEvent) => {
+          if (event.target !== pointerCaptureTarget) return;
 
-    ownerDocument.body.setPointerCapture(event.pointerId);
+          this.handlePointerUp(event);
+        },
+      },
+    ]);
 
     this.cleanup.add(unbind);
   }
 
-  protected handleCancel() {
+  protected handleCancel(event: Event) {
     const {dragOperation} = this.manager;
 
     if (dragOperation.status.initialized) {
-      this.manager.actions.stop({canceled: true});
+      this.manager.actions.stop({event, canceled: true});
     }
 
     // Remove the pointer move and up event listeners
@@ -322,6 +342,10 @@ export class PointerSensor extends Sensor<
   }
 
   static configure = configurator(PointerSensor);
+}
+
+function isCapturedBySensor(event: Event) {
+  return 'sensor' in event;
 }
 
 function preventDefault(event: Event) {

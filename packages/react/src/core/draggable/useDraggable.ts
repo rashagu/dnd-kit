@@ -3,7 +3,11 @@ import type {Data} from '@dnd-kit/abstract';
 import {deepEqual} from '@dnd-kit/state';
 import {Draggable} from '@dnd-kit/dom';
 import type {DraggableInput} from '@dnd-kit/dom';
-import {useComputed, useOnValueChange} from '@dnd-kit/react/hooks';
+import {
+  useOnValueChange,
+  useOnElementChange,
+  useDeepSignal,
+} from '@dnd-kit/react/hooks';
 import {currentValue, type RefOrValue} from '@dnd-kit/react/utilities';
 
 import {useInstance} from '../hooks/useInstance.ts';
@@ -17,26 +21,24 @@ export interface UseDraggableInput<T extends Data = Data>
 export function useDraggable<T extends Data = Data>(
   input: UseDraggableInput<T>
 ) {
-  const {disabled, data, id, modifiers, sensors} = input;
-  const handle = currentValue(input.handle);
-  const element = currentValue(input.element);
+  const {disabled, data, element, handle, id, modifiers, sensors} = input;
   const draggable = useInstance(
     (manager) =>
       new Draggable(
         {
           ...input,
-          handle,
-          element,
+          register: false,
+          handle: currentValue(handle),
+          element: currentValue(element),
         },
         manager
       )
   );
-  const isDragSource = useComputed(() => draggable.isDragSource);
-  const status = useComputed(() => draggable.status);
+  const trackedDraggable = useDeepSignal(draggable, shouldUpdateSynchronously);
 
   useOnValueChange(id, () => (draggable.id = id));
-  useOnValueChange(handle, () => (draggable.handle = handle));
-  useOnValueChange(element, () => (draggable.element = element));
+  useOnElementChange(handle, (handle) => (draggable.handle = handle));
+  useOnElementChange(element, (element) => (draggable.element = element));
   useOnValueChange(data, () => data && (draggable.data = data));
   useOnValueChange(disabled, () => (draggable.disabled = disabled === true));
   useOnValueChange(sensors, () => (draggable.sensors = sensors));
@@ -50,14 +52,21 @@ export function useDraggable<T extends Data = Data>(
     input.feedback,
     () => (draggable.feedback = input.feedback ?? 'default')
   );
+  useOnValueChange(
+    input.alignment,
+    () => (draggable.alignment = input.alignment)
+  );
 
   return {
-    draggable,
-    get isDragSource() {
-      return isDragSource.value;
+    draggable: trackedDraggable,
+    get isDragging() {
+      return trackedDraggable.isDragging;
     },
-    get status() {
-      return status.value;
+    get isDropping() {
+      return trackedDraggable.isDropping;
+    },
+    get isDragSource() {
+      return trackedDraggable.isDragSource;
     },
     handleRef: useCallback(
       (element: Element | null) => {
@@ -80,4 +89,11 @@ export function useDraggable<T extends Data = Data>(
       [draggable]
     ),
   };
+}
+
+function shouldUpdateSynchronously(key: string, oldValue: any, newValue: any) {
+  // Update synchronously after drop animation
+  if (key === 'isDragSource' && !newValue && oldValue) return true;
+
+  return false;
 }

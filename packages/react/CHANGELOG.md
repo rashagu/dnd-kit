@@ -1,18 +1,101 @@
 # @dnd-kit/react
 
+## 0.0.11
+
+### Patch Changes
+
+- Updated dependencies [[`043c280`](https://github.com/clauderic/dnd-kit/commit/043c2807a7aa290ce9838a638422245b0bd89cf1), [`ee40aac`](https://github.com/clauderic/dnd-kit/commit/ee40aacda6c015b1f357182c461650fde4c6704e), [`635d94f`](https://github.com/clauderic/dnd-kit/commit/635d94f6e719bcdf50e0024b6d1f09b9bb46c8a5), [`3080d2c`](https://github.com/clauderic/dnd-kit/commit/3080d2c8c122beabc41fb8d79beceb2188a01947)]:
+  - @dnd-kit/dom@0.0.11
+  - @dnd-kit/abstract@0.0.11
+  - @dnd-kit/state@0.0.11
+
+## 0.0.10
+
+### Patch Changes
+
+- [#1606](https://github.com/clauderic/dnd-kit/pull/1606) [`76d2d65`](https://github.com/clauderic/dnd-kit/commit/76d2d65d6555040dc64aa8f277f531808022000e) Thanks [@github-actions](https://github.com/apps/github-actions)! - Introduce the `useDragDropMonitor` hook to the `@dnd-kit/react` package. This hook allows you to monitor drag and drop events within a `DragDropProvider`.
+
+- [`349f0c0`](https://github.com/clauderic/dnd-kit/commit/349f0c0994cbc01f8f86372a938017362d767fe4) Thanks [@clauderic](https://github.com/clauderic)! - Fixed incorrect types for the `useDragDropMonitor` hook.
+
+- Updated dependencies [[`2c53eb9`](https://github.com/clauderic/dnd-kit/commit/2c53eb95a980d143b179af5b7f0a071cdedd9089), [`3155941`](https://github.com/clauderic/dnd-kit/commit/3155941608dbf16ed867e931381e7bb2c65a126d), [`082836e`](https://github.com/clauderic/dnd-kit/commit/082836e517252262b7984b142093ba6c81c43ba8)]:
+  - @dnd-kit/dom@0.0.10
+  - @dnd-kit/abstract@0.0.10
+  - @dnd-kit/state@0.0.10
+
+## 0.0.9
+
+### Patch Changes
+
+- [#1600](https://github.com/clauderic/dnd-kit/pull/1600) [`d86bbc7`](https://github.com/clauderic/dnd-kit/commit/d86bbc7e73ba16296c48f9af29f1893624157a0f) Thanks [@github-actions](https://github.com/apps/github-actions)! - Added `alignment` configuration option to draggable instances to let consumers decide how to align the draggable during the drop animation and while keyboard sorting. Defaults to the center of the target shape.
+
+- [#1600](https://github.com/clauderic/dnd-kit/pull/1600) [`2b76c19`](https://github.com/clauderic/dnd-kit/commit/2b76c19f7608c69b858eaa52b9b3410289ed543b) Thanks [@github-actions](https://github.com/apps/github-actions)! - Added `style` and `tag` props to `<DragOverlay>` component.
+
+- [#1600](https://github.com/clauderic/dnd-kit/pull/1600) [`b8898bc`](https://github.com/clauderic/dnd-kit/commit/b8898bc7718e26aa5d023e3756085a0cd6614f9e) Thanks [@github-actions](https://github.com/apps/github-actions)! - Re-export `isSortable` from `@dnd-kit/react/sortable` so React consumers don't have to import it from `@dnd-kit/dom/sortable`.
+
+- [#1600](https://github.com/clauderic/dnd-kit/pull/1600) [`c5f25c8`](https://github.com/clauderic/dnd-kit/commit/c5f25c8322ae8e2bdccd51f80352539b88a9e34a) Thanks [@github-actions](https://github.com/apps/github-actions)! - Force synchronous re-render when `isDragSource` property is updated from `true` to `false` to enable seamless transition into idle state after drop animation. Without this change, the drop animation can finish before React has had a chance to update the drag source styles back to its idle state, which can cause some flickering.
+
+- Updated dependencies [[`e36d954`](https://github.com/clauderic/dnd-kit/commit/e36d95420148659ba78bdbefd3a0a24ec5d02b8f), [`bb4abcd`](https://github.com/clauderic/dnd-kit/commit/bb4abcd1957f2562072059ad8b5e701893a0fede), [`d86bbc7`](https://github.com/clauderic/dnd-kit/commit/d86bbc7e73ba16296c48f9af29f1893624157a0f), [`f433fb2`](https://github.com/clauderic/dnd-kit/commit/f433fb21aa76c5b4badeec6423e3c930006c8d70), [`7dc0103`](https://github.com/clauderic/dnd-kit/commit/7dc0103c5e5281e9ee61bcd9c3ab493fc9307073), [`cff3c3c`](https://github.com/clauderic/dnd-kit/commit/cff3c3cbbe96a6f401cb3900a8cd5f727a974c2d), [`b7f1cf8`](https://github.com/clauderic/dnd-kit/commit/b7f1cf8f9e15a285c45f896e092f61001335cdff), [`f87d633`](https://github.com/clauderic/dnd-kit/commit/f87d63347529f5c9600bcffb14ad2d15ff6eb107), [`860759b`](https://github.com/clauderic/dnd-kit/commit/860759b15167616c465eef1738fd02c76aa53cb3), [`54e416f`](https://github.com/clauderic/dnd-kit/commit/54e416f6f0aaa19c11827f80b2df796bfe237ba0), [`3e629cc`](https://github.com/clauderic/dnd-kit/commit/3e629cc81dbaf9d112c4f1d2c10c75eb6779cf4e), [`c51778d`](https://github.com/clauderic/dnd-kit/commit/c51778dde5bcd614b1891c5f7659130769ddc9f8), [`86ed6c8`](https://github.com/clauderic/dnd-kit/commit/86ed6c8e203bb167d451c36605c2a0e0d33f0157), [`afedea9`](https://github.com/clauderic/dnd-kit/commit/afedea930bbfd1ea546c2bcbe5f42a3ea8b913fe), [`ce31da7`](https://github.com/clauderic/dnd-kit/commit/ce31da736ec5d4f48bab45430be7b57223d60ee7)]:
+  - @dnd-kit/abstract@0.0.9
+  - @dnd-kit/dom@0.0.9
+  - @dnd-kit/state@0.0.9
+
+## 0.0.8
+
+### Patch Changes
+
+- [#1598](https://github.com/clauderic/dnd-kit/pull/1598) [`426339d`](https://github.com/clauderic/dnd-kit/commit/426339df7bcfdfb08a2d3b9b2eb0abb8c02ed526) Thanks [@github-actions](https://github.com/apps/github-actions)! - Added the `<DragOverlay>` component to ease migration for consumers of `@dnd-kit/core` migrating to `@dnd-kit/react`
+
+- [#1598](https://github.com/clauderic/dnd-kit/pull/1598) [`3ea0d31`](https://github.com/clauderic/dnd-kit/commit/3ea0d314649b186bfe0524d50145625da13a8787) Thanks [@github-actions](https://github.com/apps/github-actions)! - Added optional `register` argument to instances of `Entity` to disable automatic registration of instances that have a manager supplied on initialization.
+
+- [#1598](https://github.com/clauderic/dnd-kit/pull/1598) [`e7fafec`](https://github.com/clauderic/dnd-kit/commit/e7fafec99cdcd44612a905cdb6ba560d42f1d786) Thanks [@github-actions](https://github.com/apps/github-actions)! - Prevent the `Feedback` element that has the popover attribute from being accidentally closed during the drag operation, which would take it out of the top layer.
+
+- [#1597](https://github.com/clauderic/dnd-kit/pull/1597) [`6978d81`](https://github.com/clauderic/dnd-kit/commit/6978d81311e5ac0d9c623b8ceb864740c693ca1d) Thanks [@clauderic](https://github.com/clauderic)! - Introduce `useDeepSignal` hook, which keeps track of which properties are read on an object and automatically re-renders the component when a read signal changes.
+
+- Updated dependencies [[`0de7456`](https://github.com/clauderic/dnd-kit/commit/0de7456ade17b9a0aa127b8adf13495e7fdf1558), [`c9716cf`](https://github.com/clauderic/dnd-kit/commit/c9716cf7b8b846faab451bd2f60c53c77d2d24ba), [`3ea0d31`](https://github.com/clauderic/dnd-kit/commit/3ea0d314649b186bfe0524d50145625da13a8787), [`3cf4db1`](https://github.com/clauderic/dnd-kit/commit/3cf4db126813ebe6ddfc025df5e42e9bfcfa9c38), [`74eedef`](https://github.com/clauderic/dnd-kit/commit/74eedef3441dc07d8fa8dd9337a6b2d748b0cdde), [`42e7256`](https://github.com/clauderic/dnd-kit/commit/42e7256e7fb9c11ed6295b77e30c41ebe66a15d1)]:
+  - @dnd-kit/dom@0.0.8
+  - @dnd-kit/abstract@0.0.8
+  - @dnd-kit/state@0.0.8
+
+## 0.0.7
+
+### Patch Changes
+
+- [#1592](https://github.com/clauderic/dnd-kit/pull/1592) [`cef9b46`](https://github.com/clauderic/dnd-kit/commit/cef9b46c5ed017e6a601b1d0ee9d0f05b7bbd19f) Thanks [@github-actions](https://github.com/apps/github-actions)! - Fix global modifiers set on `DragDropManager` / `<DragDropProvider>` being destroyed after the first drag operation.
+
+- [#1592](https://github.com/clauderic/dnd-kit/pull/1592) [`7c175e1`](https://github.com/clauderic/dnd-kit/commit/7c175e1694fc9c86b5882a5467f0f15fa954bd0a) Thanks [@github-actions](https://github.com/apps/github-actions)! - Fix element refs not being synchronized properly.
+
+- [#1592](https://github.com/clauderic/dnd-kit/pull/1592) [`280b7e2`](https://github.com/clauderic/dnd-kit/commit/280b7e229d5e6a5f067a66038e50c4fbb3b29dc0) Thanks [@github-actions](https://github.com/apps/github-actions)! - Fixed stale modifiers when using `useSortable`.
+
+- Updated dependencies [[`550a868`](https://github.com/clauderic/dnd-kit/commit/550a86870d7441a38a06b3e7c35aa0d7d89e32d1), [`c1dadef`](https://github.com/clauderic/dnd-kit/commit/c1dadef118f8f5f096d36dac314bfe317ea950ce), [`75e23b6`](https://github.com/clauderic/dnd-kit/commit/75e23b6fdfdeadeae1b9a4b2b9be7682f48c10e4), [`cef9b46`](https://github.com/clauderic/dnd-kit/commit/cef9b46c5ed017e6a601b1d0ee9d0f05b7bbd19f), [`730064b`](https://github.com/clauderic/dnd-kit/commit/730064b8b06bd25ebde335305a303fdf4c9a9c7f), [`808f184`](https://github.com/clauderic/dnd-kit/commit/808f184439125cf7e66054b3e85ac087aa04f13b), [`c4e7a7c`](https://github.com/clauderic/dnd-kit/commit/c4e7a7cd98ccaec99fa1037cb1020d3d05cea090), [`280b7e2`](https://github.com/clauderic/dnd-kit/commit/280b7e229d5e6a5f067a66038e50c4fbb3b29dc0), [`84b75fc`](https://github.com/clauderic/dnd-kit/commit/84b75fc3a7b7a555481dbeba533bc28128783e72)]:
+  - @dnd-kit/dom@0.0.7
+  - @dnd-kit/abstract@0.0.7
+  - @dnd-kit/state@0.0.7
+
 ## 0.0.6
 
 ### Patch Changes
+
+- [#1567](https://github.com/clauderic/dnd-kit/pull/1567) [`081b7f2`](https://github.com/clauderic/dnd-kit/commit/081b7f2a11da2aad8ce3da7f0579974415d1fdf0) Thanks [@chrisvxd](https://github.com/chrisvxd)! - Add source maps to output.
+
+- [#1554](https://github.com/clauderic/dnd-kit/pull/1554) [`7aeac23`](https://github.com/clauderic/dnd-kit/commit/7aeac233e4eae80c2c519b0ed2b90bf19e77f92f) Thanks [@chrisvxd](https://github.com/chrisvxd)! - fix: don't lockup in React strict mode when using DragDropManager with the default manager
 
 - [#1454](https://github.com/clauderic/dnd-kit/pull/1454) [`d26fafe`](https://github.com/clauderic/dnd-kit/commit/d26fafe02c0d3018df03ac3ff2bbd95602ed87ed) Thanks [@github-actions](https://github.com/apps/github-actions)! - Prevent un-necessary re-renders of unused `useSignal` values.
 
 - [#1454](https://github.com/clauderic/dnd-kit/pull/1454) [`d302511`](https://github.com/clauderic/dnd-kit/commit/d302511c96e11e30763361aa6a88d1eb6c6dc0f1) Thanks [@github-actions](https://github.com/apps/github-actions)! - Prevent unstable `ref` from being set to undefined during a drag operation on draggable sources during a drag operation.
 
+- [#1591](https://github.com/clauderic/dnd-kit/pull/1591) [`548f011`](https://github.com/clauderic/dnd-kit/commit/548f011a6b3e91f013ef5a4559197676e218d0e9) Thanks [@chrisvxd](https://github.com/chrisvxd)! - Address typo in React 19 peer dependency.
+
+- [#1590](https://github.com/clauderic/dnd-kit/pull/1590) [`5e55b89`](https://github.com/clauderic/dnd-kit/commit/5e55b8952b7d95e84d554a9b0c4051fd2a05d0bd) Thanks [@chrisvxd](https://github.com/chrisvxd)! - Add React 19 to list of supported peer dependencies.
+
+- [#1454](https://github.com/clauderic/dnd-kit/pull/1454) [`a5a556a`](https://github.com/clauderic/dnd-kit/commit/a5a556abfeec1d78effb3e047f529555e444c020) Thanks [@github-actions](https://github.com/apps/github-actions)! - Fixed React lifecycle regressions related to StrictMode.
+
 - [#1454](https://github.com/clauderic/dnd-kit/pull/1454) [`e2f5d93`](https://github.com/clauderic/dnd-kit/commit/e2f5d935cd21303c9877ce46f7642de7fc9b1ae8) Thanks [@github-actions](https://github.com/apps/github-actions)! - `useSortable`: Make sure `group` and `index` are updated at the same time.
 
 - [#1454](https://github.com/clauderic/dnd-kit/pull/1454) [`ff17c04`](https://github.com/clauderic/dnd-kit/commit/ff17c0497ba5604648319917ff327bd52518d426) Thanks [@github-actions](https://github.com/apps/github-actions)! - Allow dependencies to be passed to `useComputed` hook.
 
-- Updated dependencies [[`984b5ab`](https://github.com/clauderic/dnd-kit/commit/984b5ab7bec3145dedb9c9b3b560ffbf7e54b919), [`d436037`](https://github.com/clauderic/dnd-kit/commit/d43603740a4d056e9fc7501e9b2117c173b1df4d), [`94920c8`](https://github.com/clauderic/dnd-kit/commit/94920c8a7a3a15accfb806b52e4935637b1a0781), [`a04d3f8`](https://github.com/clauderic/dnd-kit/commit/a04d3f88d380853b97585ab3b608561f7b02ce69), [`0676276`](https://github.com/clauderic/dnd-kit/commit/0676276f5423dbb4e0cad738ac3784937dc7504b), [`8053e4b`](https://github.com/clauderic/dnd-kit/commit/8053e4b4a727c6097b29fb559ce72362d7d6eb2a), [`f400106`](https://github.com/clauderic/dnd-kit/commit/f400106072d12a902f6c113b889c7de97f43e1ea), [`c597b3f`](https://github.com/clauderic/dnd-kit/commit/c597b3fe1514f10e227c287dc8ad875134e9b4cb), [`a8542de`](https://github.com/clauderic/dnd-kit/commit/a8542de56d39c3cd3b6ef981172a0782454295b2), [`a9798f4`](https://github.com/clauderic/dnd-kit/commit/a9798f43450e406e8cb235b7d5fba8bb809fd1d7), [`f7458d9`](https://github.com/clauderic/dnd-kit/commit/f7458d9dc32824dbea3a6d5dfb29236f19a2c073), [`b750c05`](https://github.com/clauderic/dnd-kit/commit/b750c05b4b14f5d9817dc07d974d40b74470e904), [`e70b29a`](https://github.com/clauderic/dnd-kit/commit/e70b29ae64837e424f7279c95112fb6e420c4dcc), [`3d0b00a`](https://github.com/clauderic/dnd-kit/commit/3d0b00a663b9dc38ccd7a46544c94a342694b626), [`7ef9864`](https://github.com/clauderic/dnd-kit/commit/7ef98642207c8beac1ca7e2704ce8805767dc89d), [`4d1a030`](https://github.com/clauderic/dnd-kit/commit/4d1a0306c920ae064eb5b30c4c02961f50460c84), [`51be6df`](https://github.com/clauderic/dnd-kit/commit/51be6dfe1b8cb42f74df34c76098e197b9208f81), [`fe76033`](https://github.com/clauderic/dnd-kit/commit/fe7603330fb4b0a397c0e2af641df94fc2879c35), [`62a8118`](https://github.com/clauderic/dnd-kit/commit/62a81180c84f7782b14b69b56f891c810e7d0f69), [`a5933d8`](https://github.com/clauderic/dnd-kit/commit/a5933d8607e63ed08818ffab43e858863cb35d47), [`0c7bf85`](https://github.com/clauderic/dnd-kit/commit/0c7bf85897992dc48c3cf2f1deeaa896995bfcc3), [`f219549`](https://github.com/clauderic/dnd-kit/commit/f219549087d9100cee53ab0cf35d820fe256aa85), [`bfc8ab2`](https://github.com/clauderic/dnd-kit/commit/bfc8ab21cfd9c16a8d90ab250386e6d52d0a40a3), [`96f28ef`](https://github.com/clauderic/dnd-kit/commit/96f28ef86adf95e77540732d39033c7f3fb0fd04), [`3fb972e`](https://github.com/clauderic/dnd-kit/commit/3fb972e228aabfe07d662b77c642405f909fddb0), [`5b36f8f`](https://github.com/clauderic/dnd-kit/commit/5b36f8fb36f5a4468793b469425b5c0461426f56), [`69bfad7`](https://github.com/clauderic/dnd-kit/commit/69bfad7d795947987a4281f1a61f81b6a7839fe8), [`c42a11b`](https://github.com/clauderic/dnd-kit/commit/c42a11b60e950d50f8c243bdf8df4f32e1d47d23)]:
+- [#1454](https://github.com/clauderic/dnd-kit/pull/1454) [`3312dcf`](https://github.com/clauderic/dnd-kit/commit/3312dcf89428a65d134f1467597edd8bf0becc0d) Thanks [@github-actions](https://github.com/apps/github-actions)! - Use layout effect to register instances in the `useInstance` hook. This fixes issues with effects running after the browser has painted during drag operations, which can result in invalid shapes or flickering.
+
+- Updated dependencies [[`984b5ab`](https://github.com/clauderic/dnd-kit/commit/984b5ab7bec3145dedb9c9b3b560ffbf7e54b919), [`081b7f2`](https://github.com/clauderic/dnd-kit/commit/081b7f2a11da2aad8ce3da7f0579974415d1fdf0), [`d436037`](https://github.com/clauderic/dnd-kit/commit/d43603740a4d056e9fc7501e9b2117c173b1df4d), [`94920c8`](https://github.com/clauderic/dnd-kit/commit/94920c8a7a3a15accfb806b52e4935637b1a0781), [`a04d3f8`](https://github.com/clauderic/dnd-kit/commit/a04d3f88d380853b97585ab3b608561f7b02ce69), [`0676276`](https://github.com/clauderic/dnd-kit/commit/0676276f5423dbb4e0cad738ac3784937dc7504b), [`8053e4b`](https://github.com/clauderic/dnd-kit/commit/8053e4b4a727c6097b29fb559ce72362d7d6eb2a), [`f400106`](https://github.com/clauderic/dnd-kit/commit/f400106072d12a902f6c113b889c7de97f43e1ea), [`c597b3f`](https://github.com/clauderic/dnd-kit/commit/c597b3fe1514f10e227c287dc8ad875134e9b4cb), [`a8542de`](https://github.com/clauderic/dnd-kit/commit/a8542de56d39c3cd3b6ef981172a0782454295b2), [`a9798f4`](https://github.com/clauderic/dnd-kit/commit/a9798f43450e406e8cb235b7d5fba8bb809fd1d7), [`f7458d9`](https://github.com/clauderic/dnd-kit/commit/f7458d9dc32824dbea3a6d5dfb29236f19a2c073), [`b750c05`](https://github.com/clauderic/dnd-kit/commit/b750c05b4b14f5d9817dc07d974d40b74470e904), [`e70b29a`](https://github.com/clauderic/dnd-kit/commit/e70b29ae64837e424f7279c95112fb6e420c4dcc), [`3d0b00a`](https://github.com/clauderic/dnd-kit/commit/3d0b00a663b9dc38ccd7a46544c94a342694b626), [`e6a8e01`](https://github.com/clauderic/dnd-kit/commit/e6a8e018d2d7ad9a11e5b05f07774c7e3ac08da3), [`7ef9864`](https://github.com/clauderic/dnd-kit/commit/7ef98642207c8beac1ca7e2704ce8805767dc89d), [`4d1a030`](https://github.com/clauderic/dnd-kit/commit/4d1a0306c920ae064eb5b30c4c02961f50460c84), [`51be6df`](https://github.com/clauderic/dnd-kit/commit/51be6dfe1b8cb42f74df34c76098e197b9208f81), [`fe76033`](https://github.com/clauderic/dnd-kit/commit/fe7603330fb4b0a397c0e2af641df94fc2879c35), [`62a8118`](https://github.com/clauderic/dnd-kit/commit/62a81180c84f7782b14b69b56f891c810e7d0f69), [`a5933d8`](https://github.com/clauderic/dnd-kit/commit/a5933d8607e63ed08818ffab43e858863cb35d47), [`0c7bf85`](https://github.com/clauderic/dnd-kit/commit/0c7bf85897992dc48c3cf2f1deeaa896995bfcc3), [`f219549`](https://github.com/clauderic/dnd-kit/commit/f219549087d9100cee53ab0cf35d820fe256aa85), [`bfc8ab2`](https://github.com/clauderic/dnd-kit/commit/bfc8ab21cfd9c16a8d90ab250386e6d52d0a40a3), [`a5a556a`](https://github.com/clauderic/dnd-kit/commit/a5a556abfeec1d78effb3e047f529555e444c020), [`b5edff1`](https://github.com/clauderic/dnd-kit/commit/b5edff19279c07bbcd54ebc4579817b8a36cfff5), [`96f28ef`](https://github.com/clauderic/dnd-kit/commit/96f28ef86adf95e77540732d39033c7f3fb0fd04), [`3fb972e`](https://github.com/clauderic/dnd-kit/commit/3fb972e228aabfe07d662b77c642405f909fddb0), [`5b36f8f`](https://github.com/clauderic/dnd-kit/commit/5b36f8fb36f5a4468793b469425b5c0461426f56), [`69bfad7`](https://github.com/clauderic/dnd-kit/commit/69bfad7d795947987a4281f1a61f81b6a7839fe8), [`c42a11b`](https://github.com/clauderic/dnd-kit/commit/c42a11b60e950d50f8c243bdf8df4f32e1d47d23)]:
   - @dnd-kit/abstract@0.0.6
   - @dnd-kit/dom@0.0.6
   - @dnd-kit/state@0.0.6

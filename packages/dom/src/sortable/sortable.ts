@@ -1,5 +1,5 @@
 import {batch, reactive, untracked} from '@dnd-kit/state';
-import type {CollisionPriority} from '@dnd-kit/abstract';
+import type {CollisionPriority, Modifiers} from '@dnd-kit/abstract';
 import type {
   Data,
   PluginConstructor,
@@ -10,6 +10,7 @@ import {
   defaultCollisionDetection,
   type CollisionDetector,
 } from '@dnd-kit/collision';
+import type {Alignment} from '@dnd-kit/geometry';
 import {Draggable, Droppable} from '@dnd-kit/dom';
 import type {
   DraggableInput,
@@ -163,6 +164,7 @@ export class Sortable<T extends Data = Data> {
       this
     );
 
+    this.#element = input.element;
     this.manager = manager;
     this.index = index;
     this.previousIndex = index;
@@ -328,12 +330,24 @@ export class Sortable<T extends Data = Data> {
     this.draggable.sensors = value;
   }
 
+  public set modifiers(value: Modifiers | undefined) {
+    this.draggable.modifiers = value;
+  }
+
   public set collisionPriority(value: CollisionPriority | number | undefined) {
     this.droppable.collisionPriority = value;
   }
 
   public set collisionDetector(value: CollisionDetector | undefined) {
     this.droppable.collisionDetector = value ?? defaultCollisionDetection;
+  }
+
+  public set alignment(value: Alignment | undefined) {
+    this.draggable.alignment = value;
+  }
+
+  public get alignment() {
+    return this.draggable.alignment;
   }
 
   public set type(type: Type | undefined) {
@@ -366,6 +380,20 @@ export class Sortable<T extends Data = Data> {
     return this.draggable.isDragSource;
   }
 
+  /**
+   * A boolean indicating whether the sortable item is being dragged.
+   */
+  public get isDragging() {
+    return this.draggable.isDragging;
+  }
+
+  /**
+   * A boolean indicating whether the sortable item is being dropped.
+   */
+  public get isDropping() {
+    return this.draggable.isDropping;
+  }
+
   public get status() {
     return this.draggable.status;
   }
@@ -378,28 +406,28 @@ export class Sortable<T extends Data = Data> {
     return this.droppable.accepts(draggable);
   }
 
-  public register() {
+  public register = () => {
     batch(() => {
       this.manager?.registry.register(this.droppable);
       this.manager?.registry.register(this.draggable);
     });
 
     return () => this.unregister();
-  }
+  };
 
-  public unregister() {
+  public unregister = () => {
     batch(() => {
       this.manager?.registry.unregister(this.droppable);
       this.manager?.registry.unregister(this.draggable);
     });
-  }
+  };
 
-  public destroy() {
+  public destroy = () => {
     batch(() => {
       this.droppable.destroy();
       this.draggable.destroy();
     });
-  }
+  };
 }
 
 export class SortableDraggable<T extends Data> extends Draggable<T> {
@@ -409,6 +437,10 @@ export class SortableDraggable<T extends Data> extends Draggable<T> {
     public sortable: Sortable<T>
   ) {
     super(input, manager);
+  }
+
+  get index() {
+    return this.sortable.index;
   }
 }
 

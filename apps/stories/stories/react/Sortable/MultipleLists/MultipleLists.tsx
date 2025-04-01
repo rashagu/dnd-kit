@@ -25,6 +25,7 @@ interface Props {
   defaultItems?: Record<string, string[]>;
   columnStyle?: Record<string, string>;
   itemCount: number;
+  rtl?: boolean;
   scrollable?: boolean;
   vertical?: boolean;
 }
@@ -35,6 +36,7 @@ export function MultipleLists({
   grid,
   itemCount,
   columnStyle,
+  rtl,
   scrollable,
   vertical,
 }: Props) {
@@ -78,6 +80,7 @@ export function MultipleLists({
         }
       }}
     >
+      {rtl ? <style>{`:root { direction: rtl; }`}</style> : null}
       <div
         style={{
           display: grid ? 'grid' : 'flex',
@@ -160,7 +163,7 @@ function SortableItem({
   onRemove,
 }: PropsWithChildren<SortableItemProps>) {
   const group = column;
-  const {handleRef, ref, isDragSource} = useSortable({
+  const {handleRef, ref, isDragging} = useSortable({
     id,
     group,
     accept: 'item',
@@ -175,14 +178,14 @@ function SortableItem({
       ref={ref}
       actions={
         <Actions>
-          {onRemove && !isDragSource ? (
+          {onRemove && !isDragging ? (
             <Remove onClick={() => onRemove(id, column)} />
           ) : null}
           <Handle ref={handleRef} />
         </Actions>
       }
       accentColor={COLORS[column]}
-      shadow={isDragSource}
+      shadow={isDragging}
       style={style}
       transitionId={`sortable-${column}-${id}`}
     >
@@ -207,7 +210,7 @@ function SortableColumn({
   scrollable,
   style,
 }: PropsWithChildren<SortableColumnProps>) {
-  const {handleRef, isDragSource, ref} = useSortable({
+  const {handleRef, isDragging, ref} = useSortable({
     id,
     accept: ['column', 'item'],
     collisionPriority: CollisionPriority.Low,
@@ -225,7 +228,7 @@ function SortableColumn({
         </Actions>
       }
       columns={columns}
-      shadow={isDragSource}
+      shadow={isDragging}
       scrollable={scrollable}
       transitionId={`sortable-column-${id}`}
       style={style}
